@@ -1,0 +1,470 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop — LUXE Fashion</title>
+  <meta name="description" content="Browse LUXE's full collection of premium clothing — T-shirts, hoodies, jackets, jeans and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+
+<div id="page-loader"><div class="loader-logo">LUXE</div><div class="loader-bar"></div></div>
+
+<div class="announcement-bar">
+  Free worldwide shipping on orders over <strong>$100</strong> &nbsp;·&nbsp; Use code <strong>LUXE10</strong> for 10% off
+</div>
+
+<nav id="luxe-navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">LUX<span>E</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html" class="active">Shop</a></li>
+      <li><a href="shop.html?cat=men">Men</a></li>
+      <li><a href="shop.html?cat=women">Women</a></li>
+      <li><a href="shop.html?cat=streetwear">Streetwear</a></li>
+      <li><a href="shop.html?cat=luxury">Luxury</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="search-btn" aria-label="Search"><i class="bi bi-search"></i></button>
+      <a href="dashboard.html" class="nav-icon-btn" aria-label="Account"><i class="bi bi-person"></i></a>
+      <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
+        <i class="bi bi-bag"></i>
+        <span class="cart-badge" style="display:none">0</span>
+      </a>
+      <a href="dashboard.html#wishlist" class="nav-icon-btn" aria-label="Wishlist">
+        <i class="bi bi-heart"></i>
+        <span class="wishlist-badge" style="display:none">0</span>
+      </a>
+      <button class="nav-icon-btn d-lg-none" id="menu-toggle" aria-label="Menu"><i class="bi bi-list" style="font-size:1.35rem"></i></button>
+    </div>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-logo">LUX<span>E</span></span>
+    <button class="mobile-menu-close" id="mobile-menu-close"><i class="bi bi-x-lg"></i></button>
+  </div>
+  <nav class="mobile-menu-links">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop All</a>
+    <a href="shop.html?cat=men">Men</a>
+    <a href="shop.html?cat=women">Women</a>
+    <a href="shop.html?cat=streetwear">Streetwear</a>
+    <a href="shop.html?cat=luxury">Luxury</a>
+    <a href="cart.html">Cart</a>
+    <a href="dashboard.html">My Account</a>
+  </nav>
+  <div class="mobile-menu-footer">
+    <div class="footer-social">
+      <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+      <a href="#" class="social-btn"><i class="bi bi-twitter-x"></i></a>
+      <a href="#" class="social-btn"><i class="bi bi-pinterest"></i></a>
+    </div>
+  </div>
+</div>
+<div class="menu-overlay" id="menu-overlay"></div>
+
+<div id="search-overlay">
+  <button id="search-close"><i class="bi bi-x-lg"></i></button>
+  <div class="search-inner">
+    <span class="search-label">What are you looking for?</span>
+    <div class="search-input-wrap">
+      <i class="bi bi-search" style="color:rgba(255,255,255,0.25);font-size:1.1rem;flex-shrink:0"></i>
+      <input type="text" id="search-input" placeholder="Search products…" autocomplete="off" />
+    </div>
+    <div id="search-results"></div>
+  </div>
+</div>
+
+<!-- Shop Hero -->
+<div class="shop-hero">
+  <div class="container-xl px-4">
+    <span class="label" id="shop-label">All Products</span>
+    <h1 class="mt-2" id="shop-heading">The Collection</h1>
+    <p id="shop-subheading">Discover our full range of premium clothing</p>
+  </div>
+</div>
+
+<!-- Shop Body -->
+<div class="container-xl px-4">
+  <div class="shop-layout">
+
+    <!-- Filter Sidebar -->
+    <aside class="filter-sidebar" id="filter-sidebar">
+      <div class="filter-group">
+        <div class="filter-group-title">Category <i class="bi bi-chevron-down" style="font-size:10px"></i></div>
+        <div class="filter-options">
+          <label class="filter-option"><input type="radio" name="cat" value="all" checked /> All Products</label>
+          <label class="filter-option"><input type="radio" name="cat" value="tshirts" /> T-Shirts</label>
+          <label class="filter-option"><input type="radio" name="cat" value="hoodies" /> Hoodies</label>
+          <label class="filter-option"><input type="radio" name="cat" value="jackets" /> Jackets</label>
+          <label class="filter-option"><input type="radio" name="cat" value="jeans" /> Jeans</label>
+          <label class="filter-option"><input type="radio" name="cat" value="shirts" /> Shirts</label>
+          <label class="filter-option"><input type="radio" name="cat" value="streetwear" /> Streetwear</label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-group-title">Gender <i class="bi bi-chevron-down" style="font-size:10px"></i></div>
+        <div class="filter-options">
+          <label class="filter-option"><input type="checkbox" value="men" class="gender-filter" /> Men</label>
+          <label class="filter-option"><input type="checkbox" value="women" class="gender-filter" /> Women</label>
+          <label class="filter-option"><input type="checkbox" value="unisex" class="gender-filter" /> Unisex</label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-group-title">Price Range <i class="bi bi-chevron-down" style="font-size:10px"></i></div>
+        <div class="price-range-wrap">
+          <input type="range" class="price-range-input" id="price-range" min="0" max="30000" value="30000" step="500" />
+          <div class="price-range-labels">
+            <span>₹0</span>
+            <span id="price-max-label">₹30,000</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-group-title">Size <i class="bi bi-chevron-down" style="font-size:10px"></i></div>
+        <div class="size-filter-grid">
+          <button class="size-btn" data-size="XS">XS</button>
+          <button class="size-btn" data-size="S">S</button>
+          <button class="size-btn" data-size="M">M</button>
+          <button class="size-btn" data-size="L">L</button>
+          <button class="size-btn" data-size="XL">XL</button>
+          <button class="size-btn" data-size="XXL">XXL</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-group-title">Availability <i class="bi bi-chevron-down" style="font-size:10px"></i></div>
+        <div class="filter-options">
+          <label class="filter-option"><input type="checkbox" value="sale" class="avail-filter" /> On Sale</label>
+          <label class="filter-option"><input type="checkbox" value="new" class="avail-filter" /> New Arrivals</label>
+        </div>
+      </div>
+
+      <button class="btn btn-dark w-100 mt-2" id="apply-filters">Apply Filters</button>
+      <button class="btn btn-outline-dark w-100 mt-2" id="clear-filters">Clear All</button>
+    </aside>
+
+    <!-- Main -->
+    <div>
+      <div class="shop-toolbar">
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <button class="filter-toggle-btn" id="filter-toggle">
+            <i class="bi bi-sliders"></i> Filters
+          </button>
+          <span class="shop-count" id="shop-count">Showing 12 products</span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <select class="shop-sort" id="shop-sort">
+            <option value="default">Featured</option>
+            <option value="price-low">Price: Low → High</option>
+            <option value="price-high">Price: High → Low</option>
+            <option value="newest">Newest First</option>
+            <option value="rating">Top Rated</option>
+            <option value="discount">Biggest Discount</option>
+          </select>
+          <div class="shop-view-btns">
+            <button class="view-btn active" id="grid-view-btn" title="Grid View"><i class="bi bi-grid-3x3-gap"></i></button>
+            <button class="view-btn" id="list-view-btn" title="List View"><i class="bi bi-list-ul"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="active-filters" id="active-filters"></div>
+      <div class="shop-grid" id="shop-grid"></div>
+      <div class="pagination-wrap" id="pagination"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="luxe-footer mt-5">
+  <div class="container-xl px-4">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">LUX<span>E</span></div>
+        <p class="footer-tagline">Premium Fashion. Minimal Design.</p>
+        <p style="font-size:13px;color:rgba(255,255,255,0.32);max-width:260px;line-height:1.75">Crafted for those who value quality, style, and self-expression.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-btn"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="social-btn"><i class="bi bi-pinterest"></i></a>
+          <a href="#" class="social-btn"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <p class="footer-heading">Shop</p>
+        <ul class="footer-links">
+          <li><a href="shop.html?cat=men">Men</a></li>
+          <li><a href="shop.html?cat=women">Women</a></li>
+          <li><a href="shop.html?cat=streetwear">Streetwear</a></li>
+          <li><a href="shop.html?cat=luxury">Luxury</a></li>
+          <li><a href="shop.html?filter=new">New Arrivals</a></li>
+          <li><a href="shop.html?filter=sale">Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-heading">Help</p>
+        <ul class="footer-links">
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-heading">Contact</p>
+        <ul class="footer-links">
+          <li><a href="mailto:hello@luxefashion.com"><i class="bi bi-envelope me-2"></i>hello@luxefashion.com</a></li>
+          <li><a href="tel:+911234567890"><i class="bi bi-telephone me-2"></i>+92 300 123 4567</a></li>
+          <li><a href="#"><i class="bi bi-geo-alt me-2"></i>Karachi, Pakistan</a></li>
+        </ul>
+        <div class="mt-3">
+          <p class="footer-heading">We Accept</p>
+          <div class="payment-icons">
+            <span class="payment-icon">VISA</span>
+            <span class="payment-icon">MC</span>
+            <span class="payment-icon">UPI</span>
+            <span class="payment-icon">AMEX</span>
+            <span class="payment-icon">PayTM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider" />
+    <div class="footer-bottom">
+      <p>© 2025 LUXE Fashion. All rights reserved.</p>
+      <div class="d-flex gap-3 flex-wrap">
+        <a href="#" style="color:rgba(255,255,255,0.25);font-size:12px">Privacy Policy</a>
+        <a href="#" style="color:rgba(255,255,255,0.25);font-size:12px">Terms of Service</a>
+        <a href="#" style="color:rgba(255,255,255,0.25);font-size:12px">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer><script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/main.js"></script>
+<script>
+// Mobile menu
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+const menuOverlay = document.getElementById('menu-overlay');
+const menuClose = document.getElementById('mobile-menu-close');
+function openMenu() { mobileMenu.classList.add('open'); menuOverlay.classList.add('active'); }
+function closeMenu() { mobileMenu.classList.remove('open'); menuOverlay.classList.remove('active'); }
+menuToggle.addEventListener('click', openMenu);
+menuClose.addEventListener('click', closeMenu);
+menuOverlay.addEventListener('click', closeMenu);
+
+// Filter sidebar mobile
+document.getElementById('filter-toggle').addEventListener('click', () => {
+  document.getElementById('filter-sidebar').classList.toggle('open');
+});
+
+// State
+let currentPage = 1;
+const perPage = 9;
+let filteredProducts = [...PRODUCTS];
+
+// URL params
+const params = new URLSearchParams(window.location.search);
+const urlCat = params.get('cat');
+
+if (urlCat) {
+  const radio = document.querySelector(`input[name="cat"][value="${urlCat}"]`);
+  if (radio) radio.checked = true;
+  const label = urlCat.charAt(0).toUpperCase() + urlCat.slice(1);
+  document.getElementById('shop-heading').textContent = label + ' Collection';
+  document.getElementById('shop-label').textContent = label;
+}
+
+// Price range
+const priceRange = document.getElementById('price-range');
+const priceLabel = document.getElementById('price-max-label');
+priceRange.addEventListener('input', () => {
+  priceLabel.textContent = '₹' + parseInt(priceRange.value).toLocaleString('en-IN');
+});
+
+// Size buttons
+document.querySelectorAll('.size-btn').forEach(btn => {
+  btn.addEventListener('click', () => btn.classList.toggle('active'));
+});
+
+// Apply filters
+function applyFilters() {
+  const cat = document.querySelector('input[name="cat"]:checked')?.value || 'all';
+  const genders = [...document.querySelectorAll('.gender-filter:checked')].map(i => i.value);
+  const maxPrice = parseInt(priceRange.value);
+  const sizes = [...document.querySelectorAll('.size-btn.active')].map(b => b.dataset.size);
+  const avail = [...document.querySelectorAll('.avail-filter:checked')].map(i => i.value);
+
+  filteredProducts = PRODUCTS.filter(p => {
+    if (cat !== 'all' && p.category !== cat && p.gender !== cat) return false;
+    if (genders.length && !genders.includes(p.gender)) return false;
+    if (p.price > maxPrice) return false;
+    if (sizes.length && !sizes.some(s => p.sizes.includes(s))) return false;
+    if (avail.includes('sale') && p.discount < 20) return false;
+    if (avail.includes('new') && !p.isNew) return false;
+    return true;
+  });
+
+  const sort = document.getElementById('shop-sort').value;
+  if (sort === 'price-low')  filteredProducts.sort((a,b) => a.price - b.price);
+  if (sort === 'price-high') filteredProducts.sort((a,b) => b.price - a.price);
+  if (sort === 'newest')     filteredProducts.sort((a,b) => b.isNew - a.isNew);
+  if (sort === 'rating')     filteredProducts.sort((a,b) => b.rating - a.rating);
+  if (sort === 'discount')   filteredProducts.sort((a,b) => b.discount - a.discount);
+
+  currentPage = 1;
+  renderShopGrid();
+  renderActiveFilters(cat, genders, sizes);
+}
+
+document.getElementById('apply-filters').addEventListener('click', applyFilters);
+document.getElementById('shop-sort').addEventListener('change', applyFilters);
+
+document.getElementById('clear-filters').addEventListener('click', () => {
+  document.querySelector('input[name="cat"][value="all"]').checked = true;
+  document.querySelectorAll('.gender-filter, .avail-filter').forEach(i => i.checked = false);
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+  priceRange.value = 30000; priceLabel.textContent = '₹30,000';
+  filteredProducts = [...PRODUCTS];
+  currentPage = 1;
+  renderShopGrid();
+  document.getElementById('active-filters').innerHTML = '';
+});
+
+function renderActiveFilters(cat, genders, sizes) {
+  const wrap = document.getElementById('active-filters');
+  const tags = [];
+  if (cat !== 'all') tags.push(cat);
+  genders.forEach(g => tags.push(g));
+  sizes.forEach(s => tags.push(s));
+  wrap.innerHTML = tags.map(t => `
+    <span class="active-filter-tag">${t} <button onclick="this.parentElement.remove()">×</button></span>
+  `).join('');
+}
+
+function renderShopGrid() {
+  const grid = document.getElementById('shop-grid');
+  const start = (currentPage - 1) * perPage;
+  const pageProducts = filteredProducts.slice(start, start + perPage);
+  document.getElementById('shop-count').textContent = `${filteredProducts.length} product${filteredProducts.length !== 1 ? 's' : ''}`;
+
+  if (pageProducts.length === 0) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:5rem 0">
+      <i class="bi bi-search" style="font-size:2.5rem;color:var(--mid-gray)"></i>
+      <p style="margin-top:1rem;color:var(--warm-gray);font-size:14px">No products match your filters.</p>
+      <button class="btn btn-outline-dark btn-sm mt-3" onclick="document.getElementById('clear-filters').click()">Clear Filters</button>
+    </div>`;
+    renderPagination(); return;
+  }
+
+  grid.innerHTML = pageProducts.map(p => `
+    <div class="product-card reveal">
+      <div class="product-card-img">
+        <img class="img-primary" src="${p.images[0]}" alt="${p.name}" loading="lazy" />
+        <img class="img-hover" src="${p.images[1]||p.images[0]}" alt="${p.name}" loading="lazy" />
+        ${p.badge ? `<span class="product-badge ${p.badge==='Limited'||p.badge==='New'||p.badge==='Luxury'?'badge-gold':''}">${p.badge}</span>` : ''}
+        <div class="product-actions">
+          <button class="product-action-btn wishlist-toggle ${isInWishlist(p.id)?'active':''}" data-id="${p.id}" title="Wishlist">
+            <i class="bi bi-heart${isInWishlist(p.id)?'-fill':''}"></i>
+          </button>
+          <a href="product.html?id=${p.id}" class="product-action-btn" title="View Product"><i class="bi bi-eye"></i></a>
+        </div>
+        <button class="product-quick-add" data-id="${p.id}">+ Add to Cart</button>
+      </div>
+      <div class="product-info">
+        <a href="product.html?id=${p.id}"><div class="product-name">${p.name}</div></a>
+        <div class="product-price-wrap">
+          <span class="product-price">${formatPrice(p.price)}</span>
+          <span class="product-original-price">${formatPrice(p.originalPrice)}</span>
+          <span class="product-discount">−${p.discount}%</span>
+        </div>
+        <div class="product-rating">${renderStars(p.rating)}<span>(${p.reviews})</span></div>
+      </div>
+    </div>
+  `).join('');
+
+  grid.querySelectorAll('.product-quick-add').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const p = getProductById(parseInt(btn.dataset.id));
+      addToCart(p.id, p.sizes[1] || p.sizes[0]);
+    });
+  });
+  grid.querySelectorAll('.wishlist-toggle').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const id = parseInt(btn.dataset.id);
+      const added = toggleWishlist(id);
+      btn.classList.toggle('active', added);
+      btn.innerHTML = `<i class="bi bi-heart${added?'-fill':''}"></i>`;
+    });
+  });
+
+  renderPagination();
+  initScrollAnimations();
+}
+
+function renderPagination() {
+  const totalPages = Math.ceil(filteredProducts.length / perPage);
+  const wrap = document.getElementById('pagination');
+  if (totalPages <= 1) { wrap.innerHTML = ''; return; }
+  let html = '';
+  if (currentPage > 1) html += `<button class="page-btn" data-page="${currentPage-1}"><i class="bi bi-chevron-left"></i></button>`;
+  for (let i = 1; i <= totalPages; i++) {
+    html += `<button class="page-btn ${i===currentPage?'active':''}" data-page="${i}">${i}</button>`;
+  }
+  if (currentPage < totalPages) html += `<button class="page-btn" data-page="${currentPage+1}"><i class="bi bi-chevron-right"></i></button>`;
+  wrap.innerHTML = html;
+  wrap.querySelectorAll('.page-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentPage = parseInt(btn.dataset.page);
+      renderShopGrid();
+      window.scrollTo({ top: 300, behavior: 'smooth' });
+    });
+  });
+}
+
+// View toggle
+document.getElementById('grid-view-btn').addEventListener('click', () => {
+  document.getElementById('shop-grid').classList.remove('list-view');
+  document.getElementById('grid-view-btn').classList.add('active');
+  document.getElementById('list-view-btn').classList.remove('active');
+});
+document.getElementById('list-view-btn').addEventListener('click', () => {
+  document.getElementById('shop-grid').classList.add('list-view');
+  document.getElementById('list-view-btn').classList.add('active');
+  document.getElementById('grid-view-btn').classList.remove('active');
+});
+
+// Init
+if (urlCat) {
+  const radio = document.querySelector(`input[name="cat"][value="${urlCat}"]`);
+  if (radio) { radio.checked = true; }
+}
+applyFilters();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

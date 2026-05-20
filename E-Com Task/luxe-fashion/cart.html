@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart — LUXE Fashion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+
+<div id="page-loader"><div class="loader-logo">LUXE</div><div class="loader-bar"></div></div>
+<div class="announcement-bar">Free worldwide shipping on orders over <strong>$100</strong> &nbsp;·&nbsp; Use code <strong>LUXE10</strong> for 10% off</div>
+
+<nav id="luxe-navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">LUX<span>E</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="shop.html?cat=men">Men</a></li>
+      <li><a href="shop.html?cat=women">Women</a></li>
+      <li><a href="shop.html?cat=streetwear">Streetwear</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="search-btn" aria-label="Search"><i class="bi bi-search"></i></button>
+      <a href="dashboard.html" class="nav-icon-btn" aria-label="Account"><i class="bi bi-person"></i></a>
+      <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
+        <i class="bi bi-bag"></i>
+        <span class="cart-badge" style="display:none">0</span>
+      </a>
+      <a href="dashboard.html" class="nav-icon-btn" aria-label="Wishlist">
+        <i class="bi bi-heart"></i>
+        <span class="wishlist-badge" style="display:none">0</span>
+      </a>
+      <button class="nav-icon-btn d-lg-none" id="menu-toggle" aria-label="Menu"><i class="bi bi-list" style="font-size:1.35rem"></i></button>
+    </div>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-logo">LUX<span>E</span></span>
+    <button class="mobile-menu-close" id="mobile-menu-close"><i class="bi bi-x-lg"></i></button>
+  </div>
+  <nav class="mobile-menu-links">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop All</a>
+    <a href="cart.html">Cart</a>
+    <a href="dashboard.html">My Account</a>
+  </nav>
+  <div class="mobile-menu-footer">
+    <div class="footer-social">
+      <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+      <a href="#" class="social-btn"><i class="bi bi-twitter-x"></i></a>
+    </div>
+  </div>
+</div>
+<div class="menu-overlay" id="menu-overlay"></div>
+
+<div id="search-overlay">
+  <button id="search-close"><i class="bi bi-x-lg"></i></button>
+  <div class="search-inner">
+    <span class="search-label">What are you looking for?</span>
+    <div class="search-input-wrap">
+      <i class="bi bi-search" style="color:rgba(255,255,255,0.25);font-size:1.1rem;flex-shrink:0"></i>
+      <input type="text" id="search-input" placeholder="Search products…" autocomplete="off" />
+    </div>
+    <div id="search-results"></div>
+  </div>
+</div>
+
+<section class="cart-section">
+  <div class="container-xl px-4">
+    <nav style="font-size:12.5px;color:var(--mid-gray);margin-bottom:2rem;display:flex;align-items:center;gap:6px">
+      <a href="index.html" style="color:var(--mid-gray)">Home</a>
+      <i class="bi bi-chevron-right" style="font-size:10px"></i>
+      <span style="color:var(--black)">Shopping Cart</span>
+    </nav>
+    <div id="cart-content"></div>
+  </div>
+</section>
+
+<!-- You May Also Like -->
+<div class="container-xl px-4 pb-5">
+  <h3 style="font-family:var(--font-display);font-size:1.5rem;font-weight:600;margin-bottom:1.5rem">You May Also Like</h3>
+  <div class="trending-grid" id="cart-suggestions"></div>
+</div>
+
+<footer class="luxe-footer">
+  <div class="container-xl px-4">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">LUX<span>E</span></div>
+        <p class="footer-tagline">Premium Fashion. Minimal Design.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-btn"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="social-btn"><i class="bi bi-pinterest"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <p class="footer-heading">Shop</p>
+        <ul class="footer-links">
+          <li><a href="shop.html?cat=men">Men</a></li>
+          <li><a href="shop.html?cat=women">Women</a></li>
+          <li><a href="shop.html?cat=streetwear">Streetwear</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-heading">Help</p>
+        <ul class="footer-links">
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="footer-divider" />
+    <div class="footer-bottom"><p>© 2025 LUXE Fashion. All rights reserved.</p></div>
+  </div>
+</footer><script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/main.js"></script>
+<script>
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+const menuOverlay = document.getElementById('menu-overlay');
+menuToggle.addEventListener('click', () => { mobileMenu.classList.add('open'); menuOverlay.classList.add('active'); });
+document.getElementById('mobile-menu-close').addEventListener('click', () => { mobileMenu.classList.remove('open'); menuOverlay.classList.remove('active'); });
+menuOverlay.addEventListener('click', () => { mobileMenu.classList.remove('open'); menuOverlay.classList.remove('active'); });
+
+function renderCart() {
+  const cart = getCart();
+  const content = document.getElementById('cart-content');
+
+  if (cart.length === 0) {
+    content.innerHTML = `
+      <div class="cart-empty">
+        <i class="bi bi-bag-x"></i>
+        <h3>Your cart is empty</h3>
+        <p>Looks like you haven't added anything yet.</p>
+        <a href="shop.html" class="btn btn-dark">Continue Shopping <i class="bi bi-arrow-right ms-1"></i></a>
+      </div>`;
+    return;
+  }
+
+  const coupon = getAppliedCoupon();
+  const subtotal = getCartTotal();
+  const shipping = subtotal >= 100 ? 0 : 9.99;
+  const discountAmt = coupon ? parseFloat((subtotal * coupon.discount / 100).toFixed(2)) : 0;
+  const total = parseFloat((subtotal - discountAmt + shipping).toFixed(2));
+
+  content.innerHTML = `
+    <div class="cart-layout">
+      <div>
+        <div class="cart-header">
+          <h2 class="cart-title">Cart <span style="font-size:14px;font-weight:400;color:var(--mid-gray);font-family:var(--font-body)">(${cart.length} item${cart.length!==1?'s':''})</span></h2>
+          <button class="cart-clear-btn" id="clear-cart-btn">Clear all</button>
+        </div>
+        <div id="cart-items-list">
+          ${cart.map(item => `
+            <div class="cart-item" data-id="${item.id}" data-size="${item.size}">
+              <div class="cart-item-img">
+                <a href="product.html?id=${item.id}">
+                  <img src="${item.image}" alt="${item.name}" loading="lazy" />
+                </a>
+              </div>
+              <div>
+                <a href="product.html?id=${item.id}"><div class="cart-item-name">${item.name}</div></a>
+                <div class="cart-item-size">Size: ${item.size}</div>
+                <div class="cart-item-qty">
+                  <button class="cart-qty-btn qty-dec" data-id="${item.id}" data-size="${item.size}">−</button>
+                  <div class="cart-qty-num">${item.quantity}</div>
+                  <button class="cart-qty-btn qty-inc" data-id="${item.id}" data-size="${item.size}">+</button>
+                </div>
+              </div>
+              <div class="cart-item-right">
+                <div class="cart-item-price">${formatPrice(item.price * item.quantity)}</div>
+                <div class="cart-remove-btn remove-item" data-id="${item.id}" data-size="${item.size}">Remove</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="mt-3">
+          <a href="shop.html" style="font-size:13px;color:var(--warm-gray);display:inline-flex;align-items:center;gap:5px;transition:color 0.15s" onmouseover="this.style.color='var(--black)'" onmouseout="this.style.color='var(--warm-gray)'">
+            <i class="bi bi-arrow-left"></i> Continue Shopping
+          </a>
+        </div>
+      </div>
+
+      <div class="cart-summary">
+        <div class="cart-summary-title">Order Summary</div>
+        <div class="summary-row"><span>Subtotal</span><span>${formatPrice(subtotal)}</span></div>
+        <div class="summary-row"><span>Shipping</span><span>${shipping === 0 ? '<span style="color:#5cb85c;font-weight:600">FREE</span>' : formatPrice(shipping)}</span></div>
+        ${coupon ? `<div class="summary-row" style="color:#5cb85c"><span>Discount (${coupon.code})</span><span>−${formatPrice(discountAmt)}</span></div>` : ''}
+        <div class="summary-row total"><span>Total</span><span>${formatPrice(total)}</span></div>
+
+        ${coupon ? `
+          <div class="coupon-success"><i class="bi bi-check-circle-fill"></i> "${coupon.code}" applied — ${coupon.discount}% off</div>
+          <button style="font-size:12px;color:var(--mid-gray);text-decoration:underline;cursor:pointer;background:none;border:none;font-family:var(--font-body);margin-bottom:0.5rem" id="remove-coupon-btn">Remove coupon</button>
+        ` : `
+          <div class="coupon-wrap">
+            <input type="text" class="coupon-input" id="coupon-input" placeholder="COUPON CODE" />
+            <button class="coupon-apply-btn" id="coupon-apply-btn">Apply</button>
+          </div>
+          <p style="font-size:11.5px;color:var(--mid-gray);margin-bottom:0.5rem">Try: LUXE10, LUXE20, FLASH30</p>
+        `}
+
+        <a href="checkout.html" class="cart-checkout-btn">
+          Proceed to Checkout <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+
+        <div style="display:flex;justify-content:center;gap:6px;margin-top:1rem;flex-wrap:wrap">
+          <span class="payment-icon">VISA</span>
+          <span class="payment-icon">MC</span>
+          <span class="payment-icon">AMEX</span>
+          <span class="payment-icon">PayPal</span>
+          <span class="payment-icon">Apple Pay</span>
+        </div>
+        <p style="font-size:11.5px;color:var(--mid-gray);text-align:center;margin-top:0.85rem">
+          <i class="bi bi-shield-lock me-1"></i> Secure checkout
+        </p>
+      </div>
+    </div>`;
+
+  document.getElementById('clear-cart-btn')?.addEventListener('click', () => {
+    if (confirm('Remove all items from cart?')) { clearCart(); renderCart(); }
+  });
+  document.querySelectorAll('.qty-dec').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = getCart().find(i => i.id === parseInt(btn.dataset.id) && i.size === btn.dataset.size);
+      if (item && item.quantity > 1) updateCartQuantity(parseInt(btn.dataset.id), btn.dataset.size, item.quantity - 1);
+      else removeFromCart(parseInt(btn.dataset.id), btn.dataset.size);
+      renderCart();
+    });
+  });
+  document.querySelectorAll('.qty-inc').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = getCart().find(i => i.id === parseInt(btn.dataset.id) && i.size === btn.dataset.size);
+      if (item) updateCartQuantity(parseInt(btn.dataset.id), btn.dataset.size, item.quantity + 1);
+      renderCart();
+    });
+  });
+  document.querySelectorAll('.remove-item').forEach(btn => {
+    btn.addEventListener('click', () => { removeFromCart(parseInt(btn.dataset.id), btn.dataset.size); renderCart(); });
+  });
+  document.getElementById('coupon-apply-btn')?.addEventListener('click', () => {
+    const code = document.getElementById('coupon-input').value.trim();
+    const discount = applyCoupon(code);
+    if (discount) { showToast(`Coupon applied! ${discount}% off`, 'success'); renderCart(); }
+    else showToast('Invalid coupon code', 'error');
+  });
+  document.getElementById('remove-coupon-btn')?.addEventListener('click', () => { removeCoupon(); renderCart(); });
+}
+
+function renderSuggestions() {
+  const grid = document.getElementById('cart-suggestions');
+  getTrendingProducts().slice(0, 4).forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.innerHTML = `
+      <div class="product-card-img">
+        <img class="img-primary" src="${p.images[0]}" alt="${p.name}" loading="lazy" />
+        <img class="img-hover" src="${p.images[1]||p.images[0]}" alt="${p.name}" loading="lazy" />
+        ${p.badge ? `<span class="product-badge badge-gold">${p.badge}</span>` : ''}
+        <button class="product-quick-add" data-id="${p.id}">+ Add to Cart</button>
+      </div>
+      <div class="product-info">
+        <a href="product.html?id=${p.id}"><div class="product-name">${p.name}</div></a>
+        <div class="product-price-wrap">
+          <span class="product-price">${formatPrice(p.price)}</span>
+          <span class="product-original-price">${formatPrice(p.originalPrice)}</span>
+          <span class="product-discount">−${p.discount}%</span>
+        </div>
+      </div>`;
+    card.querySelector('.product-quick-add').addEventListener('click', e => {
+      e.preventDefault();
+      addToCart(p.id, p.sizes[1] || p.sizes[0]);
+      renderCart();
+    });
+    grid.appendChild(card);
+  });
+}
+
+renderCart();
+renderSuggestions();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

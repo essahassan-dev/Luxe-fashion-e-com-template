@@ -1,0 +1,344 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Admin Panel � LUXE Fashion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <link rel="stylesheet" href="css/admin.css"/>
+  <script>
+    (function() {
+      if (!localStorage.getItem('luxe_admin')) {
+        window.location.replace('login.html');
+      }
+    })();
+  </script>
+</head>
+<body>
+<div class="adm-layout">
+
+<!-- ═══════════════════════════════════════════════════════════
+     SIDEBAR
+════════════════════════════════════════════════════════════ -->
+<aside class="adm-sidebar" id="adm-sidebar">
+  <div class="adm-sidebar-logo">
+    <div class="adm-logo-text">LUX<span>E</span></div>
+    <div class="adm-logo-sub">Admin Panel</div>
+  </div>
+
+  <nav class="adm-nav">
+    <div class="adm-nav-section">Main</div>
+    <div class="adm-nav-item active" data-panel="dashboard"><i class="bi bi-grid-1x2"></i> Dashboard</div>
+    <div class="adm-nav-item" data-panel="orders"><i class="bi bi-bag-check"></i> Orders <span class="adm-nav-badge" id="badge-orders">4</span></div>
+    <div class="adm-nav-item" data-panel="products"><i class="bi bi-box-seam"></i> Products</div>
+    <div class="adm-nav-item" data-panel="customers"><i class="bi bi-people"></i> Customers</div>
+
+    <div class="adm-nav-section" style="margin-top:0.75rem">Store</div>
+    <div class="adm-nav-item" data-panel="inventory"><i class="bi bi-archive"></i> Inventory</div>
+    <div class="adm-nav-item" data-panel="coupons"><i class="bi bi-tag"></i> Coupons</div>
+    <div class="adm-nav-item" data-panel="reviews"><i class="bi bi-star"></i> Reviews</div>
+
+    <div class="adm-nav-section" style="margin-top:0.75rem">Settings</div>
+    <div class="adm-nav-item" data-panel="settings"><i class="bi bi-gear"></i> Settings</div>
+    <div class="adm-nav-item" onclick="window.open('index.html','_blank')"><i class="bi bi-box-arrow-up-right"></i> View Store</div>
+  </nav>
+
+  <div class="adm-sidebar-footer">
+    <div class="adm-admin-info">
+      <div class="adm-admin-avatar">AD</div>
+      <div>
+        <div class="adm-admin-name">Admin</div>
+        <div class="adm-admin-role">Super Admin</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MAIN
+════════════════════════════════════════════════════════════ -->
+<div class="adm-main">
+
+  <!-- Topbar -->
+  <header class="adm-topbar">
+    <div class="adm-topbar-left">
+      <button class="adm-sidebar-toggle" id="sidebar-toggle"><i class="bi bi-list"></i></button>
+      <div>
+        <div class="adm-page-title" id="adm-page-title">Dashboard</div>
+        <div class="adm-breadcrumb">LUXE Admin &rsaquo; <span id="adm-breadcrumb">Overview</span></div>
+      </div>
+    </div>
+    <div class="adm-topbar-right">
+      <div class="adm-search-bar">
+        <i class="bi bi-search" style="flex-shrink:0"></i>
+        <input type="text" id="adm-global-search" placeholder="Search orders, customers…" />
+      </div>
+      <button class="adm-topbar-btn" title="Notifications" onclick="adminToast('No new notifications','info')">
+        <i class="bi bi-bell"></i>
+        <span class="adm-notif-dot"></span>
+      </button>
+      <button class="adm-topbar-btn" title="Sign Out" onclick="adminLogout()">
+        <i class="bi bi-box-arrow-right"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="adm-content">
+
+    <!-- ── DASHBOARD PANEL ── -->
+    <div class="adm-panel active" id="panel-dashboard">
+      <!-- Stats -->
+      <div class="adm-stats-grid" id="stats-grid"></div>
+
+      <!-- Charts + Recent -->
+      <div class="adm-grid-2" style="margin-bottom:1.5rem">
+        <!-- Revenue Chart -->
+        <div class="adm-card">
+          <div class="adm-card-header">
+            <span class="adm-card-title">Revenue — Last 7 Days</span>
+            <span style="font-size:12px;color:var(--adm-muted)" id="total-revenue-label"></span>
+          </div>
+          <div class="adm-card-body">
+            <div class="adm-chart" id="revenue-chart"></div>
+          </div>
+        </div>
+        <!-- Top Products -->
+        <div class="adm-card">
+          <div class="adm-card-header">
+            <span class="adm-card-title">Top Selling Products</span>
+          </div>
+          <div class="adm-card-body" id="top-products"></div>
+        </div>
+      </div>
+
+      <!-- Recent Orders -->
+      <div class="adm-card">
+        <div class="adm-card-header">
+          <span class="adm-card-title">Recent Orders</span>
+          <button class="adm-btn adm-btn-outline adm-btn-sm" onclick="switchPanel('orders')">View All</button>
+        </div>
+        <div class="adm-table-wrap">
+          <table class="adm-table" id="recent-orders-table"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ORDERS PANEL ── -->
+    <div class="adm-panel" id="panel-orders">
+      <div class="adm-card">
+        <div class="adm-card-header">
+          <span class="adm-card-title">All Orders</span>
+          <div style="display:flex;gap:0.6rem;flex-wrap:wrap">
+            <select class="adm-input adm-select" id="order-status-filter" style="width:auto;padding:.4rem .8rem;font-size:12.5px">
+              <option value="all">All Status</option>
+              <option value="processing">Processing</option>
+              <option value="shipped">Shipped</option>
+              <option value="delivered">Delivered</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+            <input type="text" class="adm-input" id="order-search" placeholder="Search order ID or customer…" style="width:220px;padding:.4rem .8rem;font-size:12.5px" />
+          </div>
+        </div>
+        <div class="adm-table-wrap">
+          <table class="adm-table" id="orders-table"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PRODUCTS PANEL ── -->
+    <div class="adm-panel" id="panel-products">
+      <div class="adm-card">
+        <div class="adm-card-header">
+          <span class="adm-card-title">Products</span>
+          <div style="display:flex;gap:0.6rem;flex-wrap:wrap">
+            <input type="text" class="adm-input" id="product-search" placeholder="Search products…" style="width:200px;padding:.4rem .8rem;font-size:12.5px" />
+            <select class="adm-input adm-select" id="product-cat-filter" style="width:auto;padding:.4rem .8rem;font-size:12.5px">
+              <option value="all">All Categories</option>
+              <option value="tshirts">T-Shirts</option>
+              <option value="hoodies">Hoodies</option>
+              <option value="jackets">Jackets</option>
+              <option value="jeans">Jeans</option>
+              <option value="shirts">Shirts</option>
+              <option value="streetwear">Streetwear</option>
+            </select>
+          </div>
+        </div>
+        <div class="adm-table-wrap">
+          <table class="adm-table" id="products-table"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CUSTOMERS PANEL ── -->
+    <div class="adm-panel" id="panel-customers">
+      <div class="adm-card">
+        <div class="adm-card-header">
+          <span class="adm-card-title">Customers</span>
+          <input type="text" class="adm-input" id="customer-search" placeholder="Search by name or email…" style="width:220px;padding:.4rem .8rem;font-size:12.5px" />
+        </div>
+        <div class="adm-table-wrap">
+          <table class="adm-table" id="customers-table"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── INVENTORY PANEL ── -->
+    <div class="adm-panel" id="panel-inventory">
+      <div class="adm-card">
+        <div class="adm-card-header">
+          <span class="adm-card-title">Inventory Status</span>
+          <span style="font-size:12px;color:var(--adm-muted)">Stock levels across all products</span>
+        </div>
+        <div class="adm-table-wrap">
+          <table class="adm-table" id="inventory-table"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── COUPONS PANEL ── -->
+    <div class="adm-panel" id="panel-coupons">
+      <div class="adm-card">
+        <div class="adm-card-header">
+          <span class="adm-card-title">Coupon Codes</span>
+          <button class="adm-btn adm-btn-dark adm-btn-sm" onclick="openCouponModal()"><i class="bi bi-plus me-1"></i> Add Coupon</button>
+        </div>
+        <div class="adm-table-wrap">
+          <table class="adm-table" id="coupons-table"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── REVIEWS PANEL ── -->
+    <div class="adm-panel" id="panel-reviews">
+      <div class="adm-card">
+        <div class="adm-card-header">
+          <span class="adm-card-title">Customer Reviews</span>
+          <select class="adm-input adm-select" id="review-filter" style="width:auto;padding:.4rem .8rem;font-size:12.5px">
+            <option value="all">All Reviews</option>
+            <option value="5">5 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="3">3 Stars</option>
+          </select>
+        </div>
+        <div class="adm-card-body" id="reviews-list"></div>
+      </div>
+    </div>
+
+    <!-- ── SETTINGS PANEL ── -->
+    <div class="adm-panel" id="panel-settings">
+      <div class="adm-grid-2">
+        <div class="adm-card">
+          <div class="adm-card-header"><span class="adm-card-title">Store Settings</span></div>
+          <div class="adm-card-body">
+            <div class="adm-form-group"><label class="adm-label">Store Name</label><input type="text" class="adm-input" value="LUXE Fashion" /></div>
+            <div class="adm-form-group"><label class="adm-label">Store Email</label><input type="email" class="adm-input" value="hello@luxefashion.com" /></div>
+            <div class="adm-form-group"><label class="adm-label">Support Phone</label><input type="tel" class="adm-input" value="+92 300 123 4567" /></div>
+            <div class="adm-form-group"><label class="adm-label">Headquarters</label><input type="text" class="adm-input" value="Karachi, Pakistan" /></div>
+            <div class="adm-form-group"><label class="adm-label">Currency</label>
+              <select class="adm-input adm-select"><option selected>USD ($)</option><option>GBP (£)</option><option>EUR (€)</option><option>AED (د.إ)</option></select>
+            </div>
+            <button class="adm-btn adm-btn-dark" class="settings-save-btn">Save Changes</button>
+          </div>
+        </div>
+        <div class="adm-card">
+          <div class="adm-card-header"><span class="adm-card-title">Shipping Settings</span></div>
+          <div class="adm-card-body">
+            <div class="adm-form-group"><label class="adm-label">Free Shipping Threshold</label><input type="number" class="adm-input" value="100" /></div>
+            <div class="adm-form-group"><label class="adm-label">Standard Shipping Cost ($)</label><input type="number" class="adm-input" value="9.99" /></div>
+            <div class="adm-form-group"><label class="adm-label">Express Shipping Cost ($)</label><input type="number" class="adm-input" value="19.99" /></div>
+            <div class="adm-form-group"><label class="adm-label">Estimated Delivery (days)</label><input type="text" class="adm-input" value="5–10 business days" /></div>
+            <div class="adm-form-group"><label class="adm-label">COD Fee ($)</label><input type="number" class="adm-input" value="2.99" /></div>
+            <button class="adm-btn adm-btn-dark" class="settings-save-btn">Save Changes</button>
+          </div>
+        </div>
+        <div class="adm-card">
+          <div class="adm-card-header"><span class="adm-card-title">Admin Account</span></div>
+          <div class="adm-card-body">
+            <div class="adm-form-group"><label class="adm-label">Admin Name</label><input type="text" class="adm-input" value="Admin" /></div>
+            <div class="adm-form-group"><label class="adm-label">Admin Email</label><input type="email" class="adm-input" value="admin@luxefashion.com" /></div>
+            <div class="adm-form-group"><label class="adm-label">New Password</label><input type="password" class="adm-input" placeholder="Leave blank to keep current" /></div>
+            <button class="adm-btn adm-btn-dark" class="settings-save-btn">Update Account</button>
+          </div>
+        </div>
+        <div class="adm-card">
+          <div class="adm-card-header"><span class="adm-card-title">Announcement Bar</span></div>
+          <div class="adm-card-body">
+            <div class="adm-form-group"><label class="adm-label">Message</label><input type="text" class="adm-input" value="Free worldwide shipping on orders over $100" /></div>
+            <div class="adm-form-group"><label class="adm-label">Coupon Highlight</label><input type="text" class="adm-input" value="LUXE10" /></div>
+            <div class="adm-form-group" style="display:flex;align-items:center;gap:.75rem">
+              <label class="adm-label" style="margin:0">Show Bar</label>
+              <label style="position:relative;display:inline-block;width:42px;height:22px;cursor:pointer">
+                <input type="checkbox" checked style="opacity:0;width:0;height:0" />
+                <span style="position:absolute;inset:0;background:var(--adm-text);border-radius:22px;transition:.25s"></span>
+                <span style="position:absolute;width:16px;height:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.25s;transform:translateX(20px)"></span>
+              </label>
+            </div>
+            <button class="adm-btn adm-btn-dark" class="settings-save-btn">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div><!-- end adm-main -->
+
+<!-- ── Order Detail Modal ── -->
+<div class="adm-modal-bg" id="order-modal-bg">
+  <div class="adm-modal" style="max-width:600px">
+    <div class="adm-modal-header">
+      <div class="adm-modal-title" id="order-modal-title">Order Details</div>
+      <button class="adm-modal-close" onclick="closeOrderModal()"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div id="order-modal-body"></div>
+  </div>
+</div>
+
+<!-- ── Customer Detail Modal ── -->
+<div class="adm-modal-bg" id="customer-modal-bg">
+  <div class="adm-modal">
+    <div class="adm-modal-header">
+      <div class="adm-modal-title">Customer Profile</div>
+      <button class="adm-modal-close" onclick="closeCustomerModal()"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div id="customer-modal-body"></div>
+  </div>
+</div>
+
+<!-- ── Coupon Modal ── -->
+<div class="adm-modal-bg" id="coupon-modal-bg">
+  <div class="adm-modal">
+    <div class="adm-modal-header">
+      <div class="adm-modal-title">Add Coupon</div>
+      <button class="adm-modal-close" onclick="closeCouponModal()"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <form id="coupon-form">
+      <div class="adm-form-group"><label class="adm-label">Coupon Code *</label><input type="text" class="adm-input" id="cp-code" placeholder="e.g. SUMMER25" required /></div>
+      <div class="adm-grid-2">
+        <div class="adm-form-group"><label class="adm-label">Discount %</label><input type="number" class="adm-input" id="cp-discount" min="1" max="100" value="10" /></div>
+        <div class="adm-form-group"><label class="adm-label">Min Order ($)</label><input type="number" class="adm-input" id="cp-min" value="0" /></div>
+      </div>
+      <div class="adm-form-group"><label class="adm-label">Expiry Date</label><input type="date" class="adm-input" id="cp-expiry" /></div>
+      <div class="adm-form-group"><label class="adm-label">Usage Limit</label><input type="number" class="adm-input" id="cp-limit" value="100" /></div>
+      <div style="display:flex;gap:.75rem;margin-top:.5rem">
+        <button type="submit" class="adm-btn adm-btn-dark">Add Coupon</button>
+        <button type="button" class="adm-btn adm-btn-outline" onclick="closeCouponModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ── Sidebar overlay (mobile) ── -->
+<div style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99" id="sidebar-overlay" onclick="closeSidebar()"></div>
+<script src="js/admin.js"></script>
+</body>
+</html>
+
+
+
+
+
+

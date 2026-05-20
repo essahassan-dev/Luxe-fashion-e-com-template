@@ -1,0 +1,491 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUXE — Premium Fashion Brand</title>
+  <meta name="description" content="LUXE — Where luxury meets streetwear. Shop the latest collections of premium clothing, hoodies, jackets and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+</head>
+<body class="has-hero">
+
+<!-- Page Loader -->
+<div id="page-loader">
+  <div class="loader-logo">LUXE</div>
+  <div class="loader-bar"></div>
+</div>
+
+<!-- Announcement Bar -->
+<div class="announcement-bar">
+  Free worldwide shipping on orders over <strong>$100</strong> &nbsp;·&nbsp; Use code <strong>LUXE10</strong> for 10% off &nbsp;·&nbsp; New Season Drop Now Live
+</div>
+
+<!-- Navbar -->
+<nav id="luxe-navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">LUX<span>E</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="shop.html?cat=men">Men</a></li>
+      <li><a href="shop.html?cat=women">Women</a></li>
+      <li><a href="shop.html?cat=streetwear">Streetwear</a></li>
+      <li><a href="shop.html?cat=luxury">Luxury</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="search-btn" aria-label="Search"><i class="bi bi-search"></i></button>
+      <a href="dashboard.html" class="nav-icon-btn" aria-label="Account"><i class="bi bi-person"></i></a>
+      <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
+        <i class="bi bi-bag"></i>
+        <span class="cart-badge" style="display:none">0</span>
+      </a>
+      <a href="#" class="nav-icon-btn" aria-label="Wishlist">
+        <i class="bi bi-heart"></i>
+        <span class="wishlist-badge" style="display:none">0</span>
+      </a>
+      <button class="nav-icon-btn d-lg-none" id="menu-toggle" aria-label="Menu"><i class="bi bi-list" style="font-size:1.4rem"></i></button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu">
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-logo">LUX<span>E</span></span>
+    <button class="mobile-menu-close" id="mobile-menu-close"><i class="bi bi-x-lg"></i></button>
+  </div>
+  <nav class="mobile-menu-links">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop All</a>
+    <a href="shop.html?cat=men">Men</a>
+    <a href="shop.html?cat=women">Women</a>
+    <a href="shop.html?cat=streetwear">Streetwear</a>
+    <a href="shop.html?cat=luxury">Luxury</a>
+    <a href="cart.html">Cart</a>
+    <a href="dashboard.html">My Account</a>
+  </nav>
+  <div class="mobile-menu-footer">
+    <div class="footer-social">
+      <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+      <a href="#" class="social-btn"><i class="bi bi-twitter-x"></i></a>
+      <a href="#" class="social-btn"><i class="bi bi-pinterest"></i></a>
+    </div>
+  </div>
+</div>
+<div class="menu-overlay" id="menu-overlay"></div>
+
+<!-- Search Overlay -->
+<div id="search-overlay">
+  <button id="search-close"><i class="bi bi-x-lg"></i></button>
+  <div class="search-inner">
+    <span class="search-label">What are you looking for?</span>
+    <div class="search-input-wrap">
+      <i class="bi bi-search" style="color:rgba(255,255,255,0.3);font-size:1.2rem"></i>
+      <input type="text" id="search-input" placeholder="Search products..." autocomplete="off" />
+    </div>
+    <div id="search-results"></div>
+  </div>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero-section">
+  <!-- Slide 1 -->
+  <div class="hero-slide active">
+    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&q=80" alt="New Season Drop" loading="eager" />
+    <div class="hero-overlay"></div>
+  </div>
+  <!-- Slide 2 -->
+  <div class="hero-slide">
+    <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1600&q=80" alt="Winter Collection" loading="lazy" />
+    <div class="hero-overlay"></div>
+  </div>
+  <!-- Slide 3 -->
+  <div class="hero-slide">
+    <img src="https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=1600&q=80" alt="Streetwear" loading="lazy" />
+    <div class="hero-overlay"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <p class="hero-eyebrow">New Season — SS 2025</p>
+      <h1 class="hero-title">Wear the<br /><em>Silence</em><br />of Luxury</h1>
+      <p class="hero-subtitle">Premium fabrics. Minimal design. Crafted for those who let their style speak.</p>
+      <div class="hero-cta">
+        <a href="shop.html" class="btn btn-outline-white btn-lg">Shop Collection</a>
+        <a href="shop.html?cat=new" class="btn btn-gold btn-lg">New Arrivals</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-nav">
+    <button class="hero-arrow" id="hero-prev"><i class="bi bi-arrow-left"></i></button>
+    <div class="hero-dots">
+      <div class="hero-dot active"></div>
+      <div class="hero-dot"></div>
+      <div class="hero-dot"></div>
+    </div>
+    <button class="hero-arrow" id="hero-next"><i class="bi bi-arrow-right"></i></button>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ===================== COLLECTIONS ===================== -->
+<section class="section-pad">
+  <div class="container-xl px-4">
+    <div class="d-flex align-items-end justify-content-between mb-5 reveal">
+      <div>
+        <span class="label">Curated For You</span>
+        <h2 class="section-title mt-2">Shop by Collection</h2>
+      </div>
+      <a href="shop.html" class="btn btn-outline-dark desktop-only-btn">View All <i class="bi bi-arrow-right"></i></a>
+    </div>
+    <div class="collections-grid" id="collections-grid"></div>
+  </div>
+</section>
+
+<!-- ===================== TRENDING ===================== -->
+<section class="section-pad bg-off-white">
+  <div class="container-xl px-4">
+    <div class="d-flex align-items-end justify-content-between mb-5 reveal">
+      <div>
+        <span class="label">What's Hot</span>
+        <h2 class="section-title mt-2">Trending Now</h2>
+        <p class="section-subtitle">The pieces everyone's talking about this season.</p>
+      </div>
+      <a href="shop.html?filter=trending" class="btn btn-outline-dark desktop-only-btn">See All <i class="bi bi-arrow-right"></i></a>
+    </div>
+    <!-- Filter Pills -->
+    <div class="d-flex gap-2 flex-wrap mb-4 reveal">
+      <button class="tag-pill active" data-filter="all">All</button>
+      <button class="tag-pill" data-filter="men">Men</button>
+      <button class="tag-pill" data-filter="women">Women</button>
+      <button class="tag-pill" data-filter="streetwear">Streetwear</button>
+      <button class="tag-pill" data-filter="hoodies">Hoodies</button>
+      <button class="tag-pill" data-filter="jackets">Jackets</button>
+    </div>
+    <div class="trending-grid" id="trending-grid"></div>
+  </div>
+</section>
+
+<!-- ===================== LOOKBOOK ===================== -->
+<section class="section-pad lookbook-section">
+  <div class="container-xl px-4">
+    <div class="text-center mb-5 reveal">
+      <span class="label">Editorial</span>
+      <h2 class="section-title mt-2" style="color:var(--white)">The Lookbook</h2>
+      <p class="section-subtitle mx-auto mt-2" style="color:rgba(255,255,255,0.42)">Fashion as art. Stories told through fabric and form.</p>
+    </div>
+    <div class="lookbook-grid" id="lookbook-grid"></div>
+  </div>
+</section>
+
+<!-- ===================== FLASH SALE ===================== -->
+<section class="section-pad flash-sale-section">
+  <div class="container-xl px-4">
+    <div class="flash-header reveal">
+      <div class="flash-title-wrap">
+        <span class="label" style="color:#e87070">Limited Time</span>
+        <h2 class="section-title mt-2" style="color:var(--white)">Flash Sale</h2>
+        <p style="color:rgba(255,255,255,0.42);font-size:13px;margin-top:4px">Ends in:</p>
+      </div>
+      <div id="flash-countdown"></div>
+    </div>
+    <div class="flash-grid" id="flash-grid"></div>
+  </div>
+</section>
+
+<!-- ===================== INSTAGRAM FEED ===================== -->
+<section class="insta-section overflow-hidden" style="background:var(--white)">
+  <div class="container-xl px-4" style="padding-top:3rem;padding-bottom:1.75rem">
+    <div class="text-center reveal">
+      <span class="label">Follow Us</span>
+      <h2 class="section-title mt-2">@luxe.official</h2>
+    </div>
+  </div>
+  <div class="insta-grid" id="insta-grid"></div>
+</section>
+
+<!-- ===================== NEWSLETTER ===================== -->
+<section class="newsletter-section">
+  <div class="container-xl px-4">
+    <div class="newsletter-inner reveal">
+      <span class="label" style="display:block;text-align:center">Stay in the Loop</span>
+      <h2 class="section-title mt-2" style="color:var(--white);text-align:center">Join the LUXE Circle</h2>
+      <p style="color:rgba(255,255,255,0.38);text-align:center;margin-top:0.6rem;font-size:14px">
+        Get early access to new drops, exclusive offers, and style inspiration.
+      </p>
+      <form class="newsletter-form" id="newsletter-form">
+        <input type="email" placeholder="Enter your email address" required />
+        <button type="submit">Subscribe</button>
+      </form>
+      <p style="color:rgba(255,255,255,0.25);font-size:0.72rem;text-align:center;margin-top:1rem">
+        No spam. Unsubscribe anytime. We respect your privacy.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="luxe-footer">
+  <div class="container-xl px-4">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">LUX<span>E</span></div>
+        <p class="footer-tagline">Premium Fashion. Minimal Design.</p>
+        <p style="font-size:13px;color:rgba(255,255,255,0.32);max-width:280px;line-height:1.75">Crafted for those who value quality, style, and self-expression.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-btn"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="social-btn"><i class="bi bi-pinterest"></i></a>
+          <a href="#" class="social-btn"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <p class="footer-heading">Shop</p>
+        <ul class="footer-links">
+          <li><a href="shop.html?cat=men">Men</a></li>
+          <li><a href="shop.html?cat=women">Women</a></li>
+          <li><a href="shop.html?cat=streetwear">Streetwear</a></li>
+          <li><a href="shop.html?cat=luxury">Luxury</a></li>
+          <li><a href="shop.html?filter=new">New Arrivals</a></li>
+          <li><a href="shop.html?filter=sale">Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-heading">Help</p>
+        <ul class="footer-links">
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-heading">Contact</p>
+        <ul class="footer-links">
+          <li><a href="mailto:hello@luxefashion.com"><i class="bi bi-envelope me-2"></i>hello@luxefashion.com</a></li>
+          <li><a href="tel:+923001234567"><i class="bi bi-telephone me-2"></i>+92 300 123 4567</a></li>
+          <li><a href="#"><i class="bi bi-geo-alt me-2"></i>Karachi, Pakistan</a></li>
+        </ul>
+        <div class="mt-4">
+          <p class="footer-heading">We Accept</p>
+          <div class="payment-icons">
+            <span class="payment-icon">VISA</span>
+            <span class="payment-icon">MC</span>
+            <span class="payment-icon">AMEX</span>
+            <span class="payment-icon">PayPal</span>
+            <span class="payment-icon">Apple Pay</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider" />
+    <div class="footer-bottom">
+      <p>© 2025 LUXE Fashion. All rights reserved.</p>
+      <div class="d-flex gap-3 flex-wrap">
+        <a href="#" style="color:rgba(255,255,255,0.3);font-size:12px">Privacy Policy</a>
+        <a href="#" style="color:rgba(255,255,255,0.3);font-size:12px">Terms of Service</a>
+        <a href="#" style="color:rgba(255,255,255,0.3);font-size:12px">Cookie Policy</a>
+        <a href="admin-login.html" style="color:rgba(255,255,255,0.15);font-size:12px">Admin</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/main.js"></script>
+<script>
+// Mobile menu
+document.getElementById('menu-toggle').addEventListener('click', () => {
+  document.getElementById('mobile-menu').classList.add('open');
+  document.getElementById('menu-overlay').classList.add('active');
+});
+document.getElementById('mobile-menu-close').addEventListener('click', closeMobileMenu);
+document.getElementById('menu-overlay').addEventListener('click', closeMobileMenu);
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('menu-overlay').classList.remove('active');
+}
+
+// Render Collections
+function renderCollections() {
+  const grid = document.getElementById('collections-grid');
+  if (!grid) return;
+  grid.innerHTML = COLLECTIONS.map((c, i) => `
+    <a href="shop.html?cat=${c.id}" class="collection-card reveal reveal-delay-${Math.min(i+1,4)}">
+      <img src="${c.image}" alt="${c.name}" loading="lazy" />
+      <div class="collection-overlay"></div>
+      <div class="collection-info">
+        <div class="collection-name">${c.name}</div>
+        <div class="collection-subtitle">${c.subtitle}</div>
+        <span class="collection-count">${c.count} Styles</span>
+      </div>
+    </a>
+  `).join('');
+  initScrollAnimations();
+}
+
+// Render Trending Products
+function renderTrending(filter = 'all') {
+  const grid = document.getElementById('trending-grid');
+  if (!grid) return;
+  let products = getTrendingProducts();
+  if (filter !== 'all') products = products.filter(p => p.category === filter || p.gender === filter);
+  products = products.slice(0, 8);
+
+  grid.innerHTML = products.map(p => `
+    <div class="product-card reveal">
+      <div class="product-card-img">
+        <img class="img-primary" src="${p.images[0]}" alt="${p.name}" loading="lazy" />
+        <img class="img-hover" src="${p.images[1] || p.images[0]}" alt="${p.name}" loading="lazy" />
+        ${p.badge ? `<span class="product-badge ${p.badge==='Limited'?'badge-gold':p.badge==='New'?'badge-gold':''}">${p.badge}</span>` : ''}
+        <div class="product-actions">
+          <button class="product-action-btn wishlist-toggle ${isInWishlist(p.id)?'active':''}" data-id="${p.id}" title="Wishlist">
+            <i class="bi bi-heart${isInWishlist(p.id)?'-fill':''}"></i>
+          </button>
+          <a href="product.html?id=${p.id}" class="product-action-btn" title="Quick View"><i class="bi bi-eye"></i></a>
+        </div>
+        <button class="product-quick-add" data-id="${p.id}">+ Add to Cart</button>
+      </div>
+      <div class="product-info">
+        <a href="product.html?id=${p.id}"><div class="product-name">${p.name}</div></a>
+        <div class="product-price-wrap">
+          <span class="product-price">${formatPrice(p.price)}</span>
+          <span class="product-original-price">${formatPrice(p.originalPrice)}</span>
+          <span class="product-discount">-${p.discount}%</span>
+        </div>
+        <div class="product-rating">
+          ${renderStars(p.rating)}
+          <span>(${p.reviews})</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  // Quick add
+  grid.querySelectorAll('.product-quick-add').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = parseInt(btn.dataset.id);
+      const p = getProductById(id);
+      addToCart(id, p.sizes[1] || p.sizes[0]);
+    });
+  });
+
+  // Wishlist
+  grid.querySelectorAll('.wishlist-toggle').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = parseInt(btn.dataset.id);
+      const added = toggleWishlist(id);
+      btn.classList.toggle('active', added);
+      btn.innerHTML = `<i class="bi bi-heart${added?'-fill':''}"></i>`;
+    });
+  });
+
+  initScrollAnimations();
+}
+
+// Filter pills
+document.querySelectorAll('.tag-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.tag-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    renderTrending(pill.dataset.filter);
+  });
+});
+
+// Render Lookbook
+function renderLookbook() {
+  const grid = document.getElementById('lookbook-grid');
+  if (!grid) return;
+  grid.innerHTML = LOOKBOOK.map((item, i) => `
+    <div class="lookbook-item reveal reveal-delay-${i+1}">
+      <img src="${item.image}" alt="${item.title}" loading="lazy" />
+      <div class="lookbook-overlay"></div>
+      <div class="lookbook-info">
+        <div class="lookbook-tag">${item.tag}</div>
+        <div class="lookbook-title">${item.title}</div>
+        <div class="lookbook-subtitle">${item.subtitle}</div>
+      </div>
+    </div>
+  `).join('');
+  initScrollAnimations();
+}
+
+// Render Flash Sale
+function renderFlashSale() {
+  const grid = document.getElementById('flash-grid');
+  if (!grid) return;
+  const products = getFlashSaleProducts().slice(0, 4);
+  grid.innerHTML = products.map(p => `
+    <a href="product.html?id=${p.id}" class="flash-card reveal">
+      <div class="flash-card-img">
+        <img src="${p.images[0]}" alt="${p.name}" loading="lazy" />
+        <div class="flash-discount-badge">-${p.discount}%</div>
+        <div class="flash-stock-bar">
+          <div class="flash-stock-fill" style="width:${Math.floor(Math.random()*40+30)}%"></div>
+        </div>
+      </div>
+      <div class="flash-card-info">
+        <div class="flash-card-name">${p.name}</div>
+        <div class="flash-price-row">
+          <span class="flash-price">${formatPrice(p.price)}</span>
+          <span class="flash-original">${formatPrice(p.originalPrice)}</span>
+        </div>
+        <div class="flash-stock-text">Only <span>${Math.floor(Math.random()*8+2)} left</span> in stock</div>
+      </div>
+    </a>
+  `).join('');
+  initScrollAnimations();
+}
+
+// Render Instagram Feed
+function renderInstaFeed() {
+  const grid = document.getElementById('insta-grid');
+  if (!grid) return;
+  const imgs = [
+    'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80',
+    'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=400&q=80',
+    'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400&q=80',
+    'https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=400&q=80',
+    'https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=400&q=80',
+    'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&q=80',
+  ];
+  grid.innerHTML = imgs.map(src => `
+    <div class="insta-item">
+      <img src="${src}" alt="Instagram" loading="lazy" />
+      <div class="insta-overlay"><i class="bi bi-instagram"></i></div>
+    </div>
+  `).join('');
+}
+
+// Init all
+renderCollections();
+renderTrending();
+renderLookbook();
+renderFlashSale();
+renderInstaFeed();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,418 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product — LUXE Fashion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+
+<div id="page-loader"><div class="loader-logo">LUXE</div><div class="loader-bar"></div></div>
+<div class="announcement-bar">Free worldwide shipping on orders over <strong>$100</strong> &nbsp;·&nbsp; Use code <strong>LUXE10</strong> for 10% off</div>
+
+<nav id="luxe-navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">LUX<span>E</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="shop.html?cat=men">Men</a></li>
+      <li><a href="shop.html?cat=women">Women</a></li>
+      <li><a href="shop.html?cat=streetwear">Streetwear</a></li>
+      <li><a href="shop.html?cat=luxury">Luxury</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="search-btn" aria-label="Search"><i class="bi bi-search"></i></button>
+      <a href="dashboard.html" class="nav-icon-btn" aria-label="Account"><i class="bi bi-person"></i></a>
+      <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
+        <i class="bi bi-bag"></i>
+        <span class="cart-badge" style="display:none">0</span>
+      </a>
+      <a href="dashboard.html" class="nav-icon-btn" aria-label="Wishlist">
+        <i class="bi bi-heart"></i>
+        <span class="wishlist-badge" style="display:none">0</span>
+      </a>
+      <button class="nav-icon-btn d-lg-none" id="menu-toggle" aria-label="Menu"><i class="bi bi-list" style="font-size:1.35rem"></i></button>
+    </div>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-logo">LUX<span>E</span></span>
+    <button class="mobile-menu-close" id="mobile-menu-close"><i class="bi bi-x-lg"></i></button>
+  </div>
+  <nav class="mobile-menu-links">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop All</a>
+    <a href="shop.html?cat=men">Men</a>
+    <a href="shop.html?cat=women">Women</a>
+    <a href="cart.html">Cart</a>
+    <a href="dashboard.html">My Account</a>
+  </nav>
+  <div class="mobile-menu-footer">
+    <div class="footer-social">
+      <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+      <a href="#" class="social-btn"><i class="bi bi-twitter-x"></i></a>
+    </div>
+  </div>
+</div>
+<div class="menu-overlay" id="menu-overlay"></div>
+
+<div id="search-overlay">
+  <button id="search-close"><i class="bi bi-x-lg"></i></button>
+  <div class="search-inner">
+    <span class="search-label">What are you looking for?</span>
+    <div class="search-input-wrap">
+      <i class="bi bi-search" style="color:rgba(255,255,255,0.25);font-size:1.1rem;flex-shrink:0"></i>
+      <input type="text" id="search-input" placeholder="Search products…" autocomplete="off" />
+    </div>
+    <div id="search-results"></div>
+  </div>
+</div>
+
+<!-- Breadcrumb -->
+<div style="padding:7rem 0 0;background:var(--white)">
+  <div class="container-xl px-4">
+    <nav style="font-size:12.5px;color:var(--mid-gray);display:flex;align-items:center;gap:6px">
+      <a href="index.html" style="color:var(--mid-gray);transition:color 0.15s" onmouseover="this.style.color='var(--black)'" onmouseout="this.style.color='var(--mid-gray)'">Home</a>
+      <i class="bi bi-chevron-right" style="font-size:10px"></i>
+      <a href="shop.html" style="color:var(--mid-gray);transition:color 0.15s" onmouseover="this.style.color='var(--black)'" onmouseout="this.style.color='var(--mid-gray)'">Shop</a>
+      <i class="bi bi-chevron-right" style="font-size:10px"></i>
+      <span id="breadcrumb-name" style="color:var(--black)">Product</span>
+    </nav>
+  </div>
+</div>
+
+<!-- Product Detail -->
+<section class="product-detail-section">
+  <div class="container-xl px-4">
+    <div class="product-detail-grid" id="product-detail"></div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<div class="container-xl px-4">
+  <div class="reviews-section">
+    <h3 class="section-title mb-4" style="font-size:1.6rem">Customer Reviews</h3>
+    <div class="review-summary">
+      <div>
+        <div class="review-big-num" id="review-avg">4.8</div>
+        <div class="review-big-stars" id="review-stars"></div>
+        <div class="review-big-count" id="review-count">Based on 124 reviews</div>
+      </div>
+      <div class="review-bars">
+        <div class="review-bar-row"><span style="width:16px;text-align:right">5</span><div class="review-bar-track"><div class="review-bar-fill" style="width:78%"></div></div><span style="width:28px">78%</span></div>
+        <div class="review-bar-row"><span style="width:16px;text-align:right">4</span><div class="review-bar-track"><div class="review-bar-fill" style="width:14%"></div></div><span style="width:28px">14%</span></div>
+        <div class="review-bar-row"><span style="width:16px;text-align:right">3</span><div class="review-bar-track"><div class="review-bar-fill" style="width:5%"></div></div><span style="width:28px">5%</span></div>
+        <div class="review-bar-row"><span style="width:16px;text-align:right">2</span><div class="review-bar-track"><div class="review-bar-fill" style="width:2%"></div></div><span style="width:28px">2%</span></div>
+        <div class="review-bar-row"><span style="width:16px;text-align:right">1</span><div class="review-bar-track"><div class="review-bar-fill" style="width:1%"></div></div><span style="width:28px">1%</span></div>
+      </div>
+    </div>
+    <div id="reviews-list"></div>
+  </div>
+</div>
+
+<!-- Related Products -->
+<div class="container-xl px-4">
+  <div class="related-section">
+    <h3 class="section-title mb-4" style="font-size:1.6rem">You May Also Like</h3>
+    <div class="trending-grid" id="related-grid"></div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="luxe-footer">
+  <div class="container-xl px-4">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">LUX<span>E</span></div>
+        <p class="footer-tagline">Premium Fashion. Minimal Design.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-btn"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="social-btn"><i class="bi bi-pinterest"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <p class="footer-heading">Shop</p>
+        <ul class="footer-links">
+          <li><a href="shop.html?cat=men">Men</a></li>
+          <li><a href="shop.html?cat=women">Women</a></li>
+          <li><a href="shop.html?cat=streetwear">Streetwear</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-heading">Help</p>
+        <ul class="footer-links">
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="footer-divider" />
+    <div class="footer-bottom"><p>© 2025 LUXE Fashion. All rights reserved.</p></div>
+  </div>
+</footer><script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/main.js"></script>
+<script>
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+const menuOverlay = document.getElementById('menu-overlay');
+menuToggle.addEventListener('click', () => { mobileMenu.classList.add('open'); menuOverlay.classList.add('active'); });
+document.getElementById('mobile-menu-close').addEventListener('click', () => { mobileMenu.classList.remove('open'); menuOverlay.classList.remove('active'); });
+menuOverlay.addEventListener('click', () => { mobileMenu.classList.remove('open'); menuOverlay.classList.remove('active'); });
+
+const params = new URLSearchParams(window.location.search);
+const productId = parseInt(params.get('id')) || 1;
+const product = getProductById(productId);
+
+if (!product) {
+  document.getElementById('product-detail').innerHTML = '<p style="padding:4rem 0;color:var(--warm-gray)">Product not found.</p>';
+} else {
+  document.title = product.name + ' — LUXE Fashion';
+  document.getElementById('breadcrumb-name').textContent = product.name;
+
+  let selectedSize = product.sizes[1] || product.sizes[0];
+  let qty = 1;
+
+  function renderProduct() {
+    document.getElementById('product-detail').innerHTML = `
+      <div class="product-gallery">
+        <div class="gallery-main">
+          <img id="main-img" src="${product.images[0]}" alt="${product.name}" />
+        </div>
+        <div class="gallery-thumbs">
+          ${product.images.map((img, i) => `
+            <div class="gallery-thumb ${i===0?'active':''}" data-index="${i}">
+              <img src="${img}" alt="${product.name}" loading="lazy" />
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="product-detail-info">
+        ${product.badge ? `<span class="product-detail-badge">${product.badge}</span>` : ''}
+        <h1 class="product-detail-name">${product.name}</h1>
+
+        <div class="product-detail-rating">
+          <div class="rating-stars">${renderStars(product.rating)}</div>
+          <span class="rating-count">${product.rating}</span>
+          <span class="rating-divider">|</span>
+          <span class="rating-reviews">${product.reviews} Reviews</span>
+        </div>
+
+        <div class="product-detail-price">
+          <span class="detail-price">${formatPrice(product.price)}</span>
+          <span class="detail-original">${formatPrice(product.originalPrice)}</span>
+          <span class="detail-discount">Save ${product.discount}%</span>
+        </div>
+
+        <div class="product-detail-fabric">
+          <i class="bi bi-gem me-2" style="color:var(--gold)"></i>
+          <strong>Material:</strong> ${product.fabric}
+        </div>
+
+        <p class="product-detail-desc">${product.description}</p>
+
+        <div class="mb-3">
+          <div class="selector-label">Colour</div>
+          <div class="color-options">
+            ${product.colors.map((c, i) => `
+              <div class="color-swatch ${i===0?'active':''}" data-index="${i}" style="background:${c}" title="${c}"></div>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="mb-0">
+          <div class="selector-label">
+            Size <span id="selected-size-label">${selectedSize}</span>
+            <a href="#">Size Guide</a>
+          </div>
+          <div class="size-options">
+            ${product.sizes.map(s => `
+              <div class="size-option ${s===selectedSize?'active':''}" data-size="${s}">${s}</div>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="quantity-wrap">
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--warm-gray)">Qty</span>
+          <div class="qty-control">
+            <button class="qty-btn" id="qty-minus">−</button>
+            <div class="qty-input" id="qty-display">1</div>
+            <button class="qty-btn" id="qty-plus">+</button>
+          </div>
+        </div>
+
+        <div class="product-action-btns">
+          <button class="btn-add-cart" id="add-to-cart-btn">
+            <i class="bi bi-bag-plus"></i> Add to Cart
+          </button>
+          <a href="checkout.html" class="btn-buy-now" id="buy-now-btn">Buy Now</a>
+          <button class="btn-wishlist-lg ${isInWishlist(product.id)?'active':''}" id="wishlist-btn" title="Add to Wishlist">
+            <i class="bi bi-heart${isInWishlist(product.id)?'-fill':''}"></i>
+          </button>
+        </div>
+
+        <div class="product-meta">
+          <div class="product-meta-item"><i class="bi bi-truck"></i> Free worldwide delivery on orders over $100</div>
+          <div class="product-meta-item"><i class="bi bi-arrow-counterclockwise"></i> Easy 30-day returns</div>
+          <div class="product-meta-item"><i class="bi bi-shield-check"></i> 100% authentic product</div>
+          <div class="product-meta-item"><i class="bi bi-box-seam"></i> Secure & discreet packaging</div>
+        </div>
+
+        <div class="d-flex align-items-center gap-3 mt-3">
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid-gray)">Share</span>
+          <a href="#" style="color:var(--mid-gray);font-size:1rem;transition:color 0.15s" onmouseover="this.style.color='var(--black)'" onmouseout="this.style.color='var(--mid-gray)'"><i class="bi bi-instagram"></i></a>
+          <a href="#" style="color:var(--mid-gray);font-size:1rem;transition:color 0.15s" onmouseover="this.style.color='var(--black)'" onmouseout="this.style.color='var(--mid-gray)'"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" style="color:var(--mid-gray);font-size:1rem;transition:color 0.15s" onmouseover="this.style.color='var(--black)'" onmouseout="this.style.color='var(--mid-gray)'"><i class="bi bi-whatsapp"></i></a>
+        </div>
+      </div>
+    `;
+
+    // Gallery thumbs
+    document.querySelectorAll('.gallery-thumb').forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+        const img = document.getElementById('main-img');
+        img.style.opacity = '0';
+        setTimeout(() => { img.src = product.images[parseInt(thumb.dataset.index)]; img.style.opacity = '1'; }, 220);
+      });
+    });
+
+    // Size
+    document.querySelectorAll('.size-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        if (opt.classList.contains('out-of-stock')) return;
+        document.querySelectorAll('.size-option').forEach(o => o.classList.remove('active'));
+        opt.classList.add('active');
+        selectedSize = opt.dataset.size;
+        document.getElementById('selected-size-label').textContent = selectedSize;
+      });
+    });
+
+    // Colour
+    document.querySelectorAll('.color-swatch').forEach(sw => {
+      sw.addEventListener('click', () => {
+        document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+        sw.classList.add('active');
+      });
+    });
+
+    // Qty
+    document.getElementById('qty-minus').addEventListener('click', () => {
+      if (qty > 1) { qty--; document.getElementById('qty-display').textContent = qty; }
+    });
+    document.getElementById('qty-plus').addEventListener('click', () => {
+      qty++; document.getElementById('qty-display').textContent = qty;
+    });
+
+    // Add to cart
+    document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+      addToCart(product.id, selectedSize, qty);
+    });
+
+    // Buy now
+    document.getElementById('buy-now-btn').addEventListener('click', e => {
+      e.preventDefault();
+      addToCart(product.id, selectedSize, qty);
+      window.location.href = 'checkout.html';
+    });
+
+    // Wishlist
+    document.getElementById('wishlist-btn').addEventListener('click', () => {
+      const added = toggleWishlist(product.id);
+      const btn = document.getElementById('wishlist-btn');
+      btn.classList.toggle('active', added);
+      btn.innerHTML = `<i class="bi bi-heart${added?'-fill':''}"></i>`;
+    });
+  }
+
+  renderProduct();
+
+  // Reviews
+  document.getElementById('review-avg').textContent = product.rating;
+  document.getElementById('review-stars').innerHTML = renderStars(product.rating);
+  document.getElementById('review-count').textContent = `Based on ${product.reviews} reviews`;
+  document.getElementById('reviews-list').innerHTML = REVIEWS.map(r => `
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar">${r.avatar}</div>
+        <div>
+          <div class="review-name">${r.name}</div>
+          <div class="review-date">${r.date}</div>
+        </div>
+        <div class="ms-auto text-end">
+          <div class="review-stars">${renderStars(r.rating)}</div>
+          ${r.verified ? '<div class="review-verified mt-1"><i class="bi bi-patch-check-fill"></i> Verified</div>' : ''}
+        </div>
+      </div>
+      <p class="review-text">${r.text}</p>
+    </div>
+  `).join('');
+
+  // Related
+  const related = PRODUCTS.filter(p => p.id !== product.id && (p.category === product.category || p.gender === product.gender)).slice(0, 4);
+  document.getElementById('related-grid').innerHTML = related.map(p => `
+    <div class="product-card">
+      <div class="product-card-img">
+        <img class="img-primary" src="${p.images[0]}" alt="${p.name}" loading="lazy" />
+        <img class="img-hover" src="${p.images[1]||p.images[0]}" alt="${p.name}" loading="lazy" />
+        ${p.badge ? `<span class="product-badge badge-gold">${p.badge}</span>` : ''}
+        <div class="product-actions">
+          <button class="product-action-btn wishlist-toggle" data-id="${p.id}"><i class="bi bi-heart"></i></button>
+          <a href="product.html?id=${p.id}" class="product-action-btn"><i class="bi bi-eye"></i></a>
+        </div>
+        <button class="product-quick-add" data-id="${p.id}">+ Add to Cart</button>
+      </div>
+      <div class="product-info">
+        <a href="product.html?id=${p.id}"><div class="product-name">${p.name}</div></a>
+        <div class="product-price-wrap">
+          <span class="product-price">${formatPrice(p.price)}</span>
+          <span class="product-original-price">${formatPrice(p.originalPrice)}</span>
+          <span class="product-discount">−${p.discount}%</span>
+        </div>
+        <div class="product-rating">${renderStars(p.rating)}<span>(${p.reviews})</span></div>
+      </div>
+    </div>
+  `).join('');
+
+  document.querySelectorAll('#related-grid .product-quick-add').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const p = getProductById(parseInt(btn.dataset.id));
+      addToCart(p.id, p.sizes[1] || p.sizes[0]);
+    });
+  });
+  document.querySelectorAll('#related-grid .wishlist-toggle').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const id = parseInt(btn.dataset.id);
+      const added = toggleWishlist(id);
+      btn.classList.toggle('active', added);
+      btn.innerHTML = `<i class="bi bi-heart${added?'-fill':''}"></i>`;
+    });
+  });
+}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

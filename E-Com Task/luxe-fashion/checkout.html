@@ -1,0 +1,370 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — LUXE Fashion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+
+<div id="page-loader"><div class="loader-logo">LUXE</div><div class="loader-bar"></div></div>
+
+<nav id="luxe-navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">LUX<span>E</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
+        <i class="bi bi-bag"></i>
+        <span class="cart-badge" style="display:none">0</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<section class="checkout-section">
+  <div class="container-xl px-4">
+    <nav style="font-size:12.5px;color:var(--mid-gray);margin-bottom:2.5rem;display:flex;align-items:center;gap:6px">
+      <a href="cart.html" style="color:var(--mid-gray)">Cart</a>
+      <i class="bi bi-chevron-right" style="font-size:10px"></i>
+      <span style="color:var(--black)">Checkout</span>
+    </nav>
+
+    <div class="checkout-layout">
+      <!-- Left: Forms -->
+      <div>
+        <!-- Contact -->
+        <div class="checkout-form-section">
+          <div class="checkout-step-header">
+            <div class="step-num">1</div>
+            <div class="step-title">Contact Information</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First Name *</label>
+              <input type="text" class="form-control" id="first-name" placeholder="James" />
+              <div class="form-error" id="err-first-name">Please enter your first name</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name *</label>
+              <input type="text" class="form-control" id="last-name" placeholder="Whitfield" />
+              <div class="form-error" id="err-last-name">Please enter your last name</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email Address *</label>
+              <input type="email" class="form-control" id="email" placeholder="james@email.com" />
+              <div class="form-error" id="err-email">Please enter a valid email</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number *</label>
+              <input type="tel" class="form-control" id="phone" placeholder="+1 555 000 0000" />
+              <div class="form-error" id="err-phone">Please enter your phone number</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shipping -->
+        <div class="checkout-form-section">
+          <div class="checkout-step-header">
+            <div class="step-num">2</div>
+            <div class="step-title">Shipping Address</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Address Line 1 *</label>
+            <input type="text" class="form-control" id="address1" placeholder="House / Flat No., Street Name" />
+            <div class="form-error" id="err-address1">Please enter your address</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Address Line 2 <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+            <input type="text" class="form-control" id="address2" placeholder="Landmark, Area" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">City *</label>
+              <input type="text" class="form-control" id="city" placeholder="New York" />
+              <div class="form-error" id="err-city">Please enter your city</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">State *</label>
+              <select class="form-control" id="state">
+                <option value="">Select State / Region</option>
+                <option>California</option>
+                <option>New York</option>
+                <option>Texas</option>
+                <option>Florida</option>
+                <option>London</option>
+                <option>Manchester</option>
+                <option>Dubai</option>
+                <option>Abu Dhabi</option>
+                <option>Toronto</option>
+                <option>Sydney</option>
+                <option>Other</option>
+              </select>
+              <div class="form-error" id="err-state">Please select your state</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">ZIP / Postal Code *</label>
+              <input type="text" class="form-control" id="pincode" placeholder="e.g. 10001 / SW1A 1AA" maxlength="10" />
+              <div class="form-error" id="err-pincode">Please enter a valid postal code</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Country *</label>
+              <select class="form-control" id="country">
+                <option value="">Select Country</option>
+                <option>United States</option>
+                <option>United Kingdom</option>
+                <option>Canada</option>
+                <option>Australia</option>
+                <option>UAE</option>
+                <option>Germany</option>
+                <option>France</option>
+                <option>Netherlands</option>
+                <option>Sweden</option>
+                <option>Pakistan</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Billing -->
+        <div class="checkout-form-section">
+          <div class="checkout-step-header">
+            <div class="step-num">3</div>
+            <div class="step-title">Billing Address</div>
+          </div>
+          <label class="filter-option" style="margin-bottom:1rem;font-size:14px;color:var(--black)">
+            <input type="checkbox" id="same-as-shipping" checked style="accent-color:var(--black)" />
+            Same as shipping address
+          </label>
+          <div id="billing-form" style="display:none">
+            <div class="form-group">
+              <label class="form-label">Billing Address</label>
+              <input type="text" class="form-control" placeholder="Enter billing address" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment -->
+        <div class="checkout-form-section">
+          <div class="checkout-step-header">
+            <div class="step-num">4</div>
+            <div class="step-title">Payment Method</div>
+          </div>
+          <div class="payment-options">
+            <label class="payment-option selected">
+              <input type="radio" name="payment" value="card" checked />
+              <span class="payment-option-label"><i class="bi bi-credit-card me-2"></i>Credit / Debit Card</span>
+              <div class="payment-option-icons">
+                <span class="pay-icon">VISA</span>
+                <span class="pay-icon">MC</span>
+                <span class="pay-icon">AMEX</span>
+              </div>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="paypal" />
+              <span class="payment-option-label"><i class="bi bi-paypal me-2"></i>PayPal</span>
+              <div class="payment-option-icons"><span class="pay-icon">PayPal</span></div>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="applepay" />
+              <span class="payment-option-label"><i class="bi bi-apple me-2"></i>Apple Pay</span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="cod" />
+              <span class="payment-option-label"><i class="bi bi-cash-coin me-2"></i>Cash on Delivery</span>
+              <span style="font-size:12px;color:var(--mid-gray);margin-left:auto">+$2.99 COD fee</span>
+            </label>
+          </div>
+
+          <div id="card-fields" style="margin-top:1.5rem">
+            <div class="form-group">
+              <label class="form-label">Card Number</label>
+              <input type="text" class="form-control" placeholder="1234  5678  9012  3456" maxlength="19" id="card-number" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Expiry Date</label>
+                <input type="text" class="form-control" placeholder="MM / YY" maxlength="7" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">CVV</label>
+                <input type="password" class="form-control" placeholder="•••" maxlength="4" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Name on Card</label>
+              <input type="text" class="form-control" placeholder="James Whitfield" />
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-dark btn-lg w-100" id="place-order-btn" style="border-radius:var(--r-sm)">
+          <i class="bi bi-shield-lock me-2"></i> Place Order Securely
+        </button>
+        <p style="font-size:12px;color:var(--mid-gray);text-align:center;margin-top:0.75rem">
+          By placing your order you agree to our
+          <a href="#" style="color:var(--black);text-decoration:underline">Terms</a> and
+          <a href="#" style="color:var(--black);text-decoration:underline">Privacy Policy</a>.
+        </p>
+      </div>
+
+      <!-- Right: Order Summary -->
+      <div class="order-summary-box">
+        <div class="order-summary-title">Your Order</div>
+        <div id="order-items"></div>
+        <div style="margin-top:1.25rem">
+          <div class="summary-row"><span>Subtotal</span><span id="order-subtotal">₹0</span></div>
+          <div class="summary-row"><span>Shipping</span><span id="order-shipping">₹0</span></div>
+          <div class="summary-row" id="order-discount-row" style="display:none;color:#5cb85c">
+            <span>Discount</span><span id="order-discount">−₹0</span>
+          </div>
+          <div class="summary-row total"><span>Total</span><span id="order-total">₹0</span></div>
+        </div>
+        <div style="margin-top:1.4rem;padding-top:1.4rem;border-top:1px solid var(--light-gray)">
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--warm-gray)">
+            <div><i class="bi bi-truck me-2" style="color:var(--gold)"></i>Estimated delivery: 5–10 business days</div>
+            <div><i class="bi bi-arrow-counterclockwise me-2" style="color:var(--gold)"></i>Free returns within 30 days</div>
+            <div><i class="bi bi-shield-check me-2" style="color:var(--gold)"></i>100% secure payment</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Order Success Modal -->
+<div id="order-success-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
+  <div style="background:var(--white);border-radius:var(--r-xl);padding:2.75rem 2.5rem;max-width:460px;width:90%;text-align:center;animation:fadeSlideIn 0.45s var(--ease-out)">
+    <div style="width:68px;height:68px;background:#f0fdf4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.4rem;font-size:1.8rem;color:#16a34a">
+      <i class="bi bi-check-lg"></i>
+    </div>
+    <h2 style="font-family:var(--font-display);font-size:1.75rem;font-weight:600;margin-bottom:0.6rem">Order Placed!</h2>
+    <p style="color:var(--warm-gray);font-size:14px;margin-bottom:0.4rem">Thank you for shopping with LUXE.</p>
+    <p style="color:var(--warm-gray);font-size:13.5px;margin-bottom:2rem">Your order <strong id="order-id-display" style="color:var(--black)">#LX-00001</strong> is confirmed. You'll receive a confirmation email shortly.</p>
+    <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">
+      <a href="dashboard.html" class="btn btn-dark">Track Order</a>
+      <a href="shop.html" class="btn btn-outline-dark">Continue Shopping</a>
+    </div>
+  </div>
+</div><script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/main.js"></script>
+<script>
+function renderOrderSummary() {
+  const cart = getCart();
+  const coupon = getAppliedCoupon();
+  const subtotal = getCartTotal();
+  const shipping = subtotal >= 100 ? 0 : 9.99;
+  const discountAmt = coupon ? parseFloat((subtotal * coupon.discount / 100).toFixed(2)) : 0;
+  const total = parseFloat((subtotal - discountAmt + shipping).toFixed(2));
+
+  document.getElementById('order-items').innerHTML = cart.length
+    ? cart.map(item => `
+      <div class="order-item">
+        <div class="order-item-img">
+          <img src="${item.image}" alt="${item.name}" loading="lazy" />
+          <span class="order-item-qty-badge">${item.quantity}</span>
+        </div>
+        <div>
+          <div class="order-item-name">${item.name}</div>
+          <div class="order-item-size">Size: ${item.size}</div>
+        </div>
+        <div class="order-item-price">${formatPrice(item.price * item.quantity)}</div>
+      </div>`).join('')
+    : '<p style="color:var(--mid-gray);font-size:13px;padding:0.5rem 0">No items in cart</p>';
+
+  document.getElementById('order-subtotal').textContent = formatPrice(subtotal);
+  document.getElementById('order-shipping').textContent = shipping === 0 ? 'FREE' : formatPrice(shipping);
+  document.getElementById('order-total').textContent = formatPrice(total);
+  if (coupon) {
+    document.getElementById('order-discount-row').style.display = 'flex';
+    document.getElementById('order-discount').textContent = '−' + formatPrice(discountAmt);
+  }
+}
+renderOrderSummary();
+
+// Billing toggle
+document.getElementById('same-as-shipping').addEventListener('change', function() {
+  document.getElementById('billing-form').style.display = this.checked ? 'none' : 'block';
+});
+
+// Payment option
+document.querySelectorAll('.payment-option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected');
+    document.getElementById('card-fields').style.display =
+      opt.querySelector('input').value === 'card' ? 'block' : 'none';
+  });
+});
+
+// Card number formatting
+document.getElementById('card-number')?.addEventListener('input', function() {
+  let v = this.value.replace(/\D/g,'').substring(0,16);
+  this.value = v.replace(/(.{4})/g,'$1 ').trim();
+});
+
+// Validation
+function validateField(id, errId, fn) {
+  const el = document.getElementById(id);
+  const err = document.getElementById(errId);
+  if (!el || !err) return true;
+  const ok = fn(el.value);
+  el.classList.toggle('error', !ok);
+  err.classList.toggle('show', !ok);
+  return ok;
+}
+
+document.getElementById('place-order-btn').addEventListener('click', () => {
+  const valid = [
+    validateField('first-name','err-first-name', v => v.trim().length > 0),
+    validateField('last-name', 'err-last-name',  v => v.trim().length > 0),
+    validateField('email',     'err-email',       v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)),
+    validateField('phone',     'err-phone',       v => v.trim().length >= 10),
+    validateField('address1',  'err-address1',    v => v.trim().length > 0),
+    validateField('city',      'err-city',        v => v.trim().length > 0),
+    validateField('state',     'err-state',       v => v !== ''),
+    validateField('pincode',   'err-pincode',     v => /^\d{6}$/.test(v)),
+  ].every(Boolean);
+
+  if (!valid) { showToast('Please fill all required fields', 'error'); return; }
+
+  const orderId = '#LX-' + String(Math.floor(Math.random() * 90000) + 10000);
+  document.getElementById('order-id-display').textContent = orderId;
+  const modal = document.getElementById('order-success-modal');
+  modal.style.display = 'flex';
+  clearCart();
+  removeCoupon();
+});
+
+// Close modal on backdrop click
+document.getElementById('order-success-modal').addEventListener('click', function(e) {
+  if (e.target === this) this.style.display = 'none';
+});
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

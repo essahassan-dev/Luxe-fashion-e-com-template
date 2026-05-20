@@ -1,0 +1,732 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account � LUXE Fashion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <style>
+    .toggle-wrap{position:relative;display:inline-block;width:42px;height:22px;cursor:pointer}
+    .toggle-wrap input{opacity:0;width:0;height:0}
+    .toggle-track{position:absolute;inset:0;background:var(--light-gray);border-radius:22px;transition:background .25s}
+    .toggle-track::before{content:'';position:absolute;width:16px;height:16px;left:3px;bottom:3px;background:var(--white);border-radius:50%;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+    .toggle-wrap input:checked+.toggle-track{background:var(--black)}
+    .toggle-wrap input:checked+.toggle-track::before{transform:translateX(20px)}
+    .addr-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:3000;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+    .addr-modal-bg.open{display:flex}
+    .addr-modal{background:var(--white);border-radius:var(--r-xl);padding:2rem;width:90%;max-width:520px;max-height:90vh;overflow-y:auto}
+    .track-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:3000;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+    .track-modal-bg.open{display:flex}
+    .track-modal{background:var(--white);border-radius:var(--r-xl);padding:2rem;width:90%;max-width:480px}
+    .track-step{display:flex;gap:1rem;padding:.75rem 0;position:relative}
+    .track-step:not(:last-child)::after{content:'';position:absolute;left:15px;top:36px;width:2px;height:calc(100% - 12px);background:var(--light-gray)}
+    .track-step.done::after{background:var(--gold)}
+    .track-dot{width:32px;height:32px;border-radius:50%;border:2px solid var(--light-gray);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;background:var(--white);color:var(--mid-gray)}
+    .track-step.done .track-dot{background:var(--gold);border-color:var(--gold);color:var(--white)}
+    .track-step.active .track-dot{border-color:var(--black);color:var(--black);font-weight:700}
+  </style>
+</head>
+<body>
+
+<div id="page-loader"><div class="loader-logo">LUXE</div><div class="loader-bar"></div></div>
+<div class="announcement-bar">Free worldwide shipping on orders over <strong>$100</strong> &nbsp;·&nbsp; Use code <strong>LUXE10</strong> for 10% off</div>
+
+<nav id="luxe-navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">LUX<span>E</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="shop.html?cat=men">Men</a></li>
+      <li><a href="shop.html?cat=women">Women</a></li>
+      <li><a href="shop.html?cat=streetwear">Streetwear</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="search-btn" aria-label="Search"><i class="bi bi-search"></i></button>
+      <a href="dashboard.html" class="nav-icon-btn" aria-label="Account"><i class="bi bi-person"></i></a>
+      <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
+        <i class="bi bi-bag"></i><span class="cart-badge" style="display:none">0</span>
+      </a>
+      <a href="#" class="nav-icon-btn" aria-label="Wishlist">
+        <i class="bi bi-heart"></i><span class="wishlist-badge" style="display:none">0</span>
+      </a>
+      <button class="nav-icon-btn d-lg-none" id="menu-toggle" aria-label="Menu"><i class="bi bi-list" style="font-size:1.35rem"></i></button>
+    </div>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-logo">LUX<span>E</span></span>
+    <button class="mobile-menu-close" id="mobile-menu-close"><i class="bi bi-x-lg"></i></button>
+  </div>
+  <nav class="mobile-menu-links">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop All</a>
+    <a href="cart.html">Cart</a>
+    <a href="dashboard.html">My Account</a>
+  </nav>
+  <div class="mobile-menu-footer">
+    <div class="footer-social">
+      <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+      <a href="#" class="social-btn"><i class="bi bi-twitter-x"></i></a>
+    </div>
+  </div>
+</div>
+<div class="menu-overlay" id="menu-overlay"></div>
+
+<div id="search-overlay">
+  <button id="search-close"><i class="bi bi-x-lg"></i></button>
+  <div class="search-inner">
+    <span class="search-label">What are you looking for?</span>
+    <div class="search-input-wrap">
+      <i class="bi bi-search" style="color:rgba(255,255,255,0.25);font-size:1.1rem;flex-shrink:0"></i>
+      <input type="text" id="search-input" placeholder="Search products…" autocomplete="off" />
+    </div>
+    <div id="search-results"></div>
+  </div>
+</div>
+
+<!-- ── Address Modal ── -->
+<div class="addr-modal-bg" id="addr-modal-bg">
+  <div class="addr-modal">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
+      <h3 style="font-family:var(--font-display);font-size:1.2rem;font-weight:600" id="addr-modal-title">Add New Address</h3>
+      <button onclick="closeAddrModal()" style="color:var(--mid-gray);font-size:1.1rem"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <form id="addr-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" class="form-control" id="addr-name" placeholder="James Whitfield" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone *</label>
+          <input type="tel" class="form-control" id="addr-phone" placeholder="+1 555 000 0000" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Address Line 1 *</label>
+        <input type="text" class="form-control" id="addr-line1" placeholder="Street address, apartment, suite" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Address Line 2</label>
+        <input type="text" class="form-control" id="addr-line2" placeholder="Landmark, area (optional)" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">City *</label>
+          <input type="text" class="form-control" id="addr-city" placeholder="New York" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">State / Region *</label>
+          <input type="text" class="form-control" id="addr-state" placeholder="NY" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">ZIP / Postal Code *</label>
+          <input type="text" class="form-control" id="addr-zip" placeholder="10001" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Country *</label>
+          <select class="form-control" id="addr-country">
+            <option value="">Select Country</option>
+            <option>United States</option>
+            <option>United Kingdom</option>
+            <option>Canada</option>
+            <option>Australia</option>
+            <option>UAE</option>
+            <option>Germany</option>
+            <option>France</option>
+            <option>Netherlands</option>
+            <option>Sweden</option>
+            <option>Pakistan</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--warm-gray);cursor:pointer;margin-bottom:1.25rem">
+        <input type="checkbox" id="addr-default" style="accent-color:var(--black);width:15px;height:15px" />
+        Set as default address
+      </label>
+      <div style="display:flex;gap:0.75rem">
+        <button type="submit" class="btn btn-dark">Save Address</button>
+        <button type="button" class="btn btn-outline-dark" onclick="closeAddrModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ── Order Tracking Modal ── -->
+<div class="track-modal-bg" id="track-modal-bg">
+  <div class="track-modal">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
+      <h3 style="font-family:var(--font-display);font-size:1.2rem;font-weight:600">Track Order</h3>
+      <button onclick="closeTrackModal()" style="color:var(--mid-gray);font-size:1.1rem"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div id="track-order-id" style="font-size:13px;color:var(--warm-gray);margin-bottom:1.5rem"></div>
+    <div id="track-steps"></div>
+    <div style="margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--light-gray)">
+      <p style="font-size:12.5px;color:var(--warm-gray)"><i class="bi bi-truck me-2" style="color:var(--gold)"></i>Estimated delivery shown in your confirmation email.</p>
+    </div>
+  </div>
+</div>
+
+<section class="dashboard-section">
+  <div class="container-xl px-4">
+    <nav style="font-size:12.5px;color:var(--mid-gray);margin-bottom:2rem;display:flex;align-items:center;gap:6px">
+      <a href="index.html" style="color:var(--mid-gray)">Home</a>
+      <i class="bi bi-chevron-right" style="font-size:10px"></i>
+      <span style="color:var(--black)">My Account</span>
+    </nav>
+
+    <div class="dashboard-layout">
+      <!-- Sidebar -->
+      <div class="dashboard-sidebar">
+        <div class="dashboard-user">
+          <div class="dashboard-avatar" id="user-avatar">JW</div>
+          <div class="dashboard-user-name" id="user-name">James Whitfield</div>
+          <div class="dashboard-user-email" id="user-email">james@email.com</div>
+        </div>
+        <nav class="dashboard-nav">
+          <div class="dashboard-nav-item active" data-panel="orders"><i class="bi bi-bag-check"></i> My Orders</div>
+          <div class="dashboard-nav-item" data-panel="wishlist"><i class="bi bi-heart"></i> Wishlist</div>
+          <div class="dashboard-nav-item" data-panel="profile"><i class="bi bi-person"></i> Profile Settings</div>
+          <div class="dashboard-nav-item" data-panel="addresses"><i class="bi bi-geo-alt"></i> Saved Addresses</div>
+          <div class="dashboard-nav-item" data-panel="notifications"><i class="bi bi-bell"></i> Notifications</div>
+          <div class="dashboard-nav-item" style="margin-top:.75rem;border-top:1px solid var(--light-gray);padding-top:.75rem" id="logout-btn">
+            <i class="bi bi-box-arrow-right"></i> Sign Out
+          </div>
+        </nav>
+      </div>
+
+      <!-- Panels -->
+      <div>
+        <!-- Orders Panel -->
+        <div class="dashboard-panel active" id="panel-orders">
+          <div class="dashboard-panel-title">My Orders</div>
+          <div id="orders-list"></div>
+        </div>
+
+        <!-- Wishlist Panel -->
+        <div class="dashboard-panel" id="panel-wishlist">
+          <div class="dashboard-panel-title">My Wishlist</div>
+          <div class="wishlist-grid" id="wishlist-grid"></div>
+          <div id="wishlist-empty" style="display:none;text-align:center;padding:3.5rem 0">
+            <i class="bi bi-heart" style="font-size:2.75rem;color:var(--mid-gray)"></i>
+            <p style="margin-top:1rem;color:var(--warm-gray);font-size:14px">Your wishlist is empty.</p>
+            <a href="shop.html" class="btn btn-dark btn-sm mt-3">Explore Products</a>
+          </div>
+        </div>
+
+        <!-- Profile Panel -->
+        <div class="dashboard-panel" id="panel-profile">
+          <div class="dashboard-panel-title">Profile Settings</div>
+          <form id="profile-form">
+            <div class="profile-form-grid">
+              <div class="form-group">
+                <label class="form-label">First Name</label>
+                <input type="text" class="form-control" id="profile-first" value="James" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="profile-last" value="Whitfield" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="profile-email" value="james@email.com" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="profile-phone" value="+1 555 000 0000" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Date of Birth</label>
+                <input type="date" class="form-control" id="profile-dob" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Gender</label>
+                <select class="form-control" id="profile-gender">
+                  <option>Male</option><option>Female</option>
+                  <option>Non-binary</option><option>Prefer not to say</option>
+                </select>
+              </div>
+            </div>
+            <div style="border-top:1px solid var(--light-gray);padding-top:1.5rem;margin-top:.5rem">
+              <h4 style="font-size:1rem;font-weight:600;margin-bottom:1.1rem">Change Password</h4>
+              <div class="profile-form-grid">
+                <div class="form-group">
+                  <label class="form-label">Current Password</label>
+                  <div class="password-wrap">
+                    <input type="password" class="form-control" id="pw-current" placeholder="••••••••" style="padding-right:2.75rem" />
+                    <button type="button" class="password-toggle" onclick="togglePassField(this)"><i class="bi bi-eye"></i></button>
+                  </div>
+                </div>
+                <div></div>
+                <div class="form-group">
+                  <label class="form-label">New Password</label>
+                  <div class="password-wrap">
+                    <input type="password" class="form-control" id="pw-new" placeholder="Min. 8 characters" style="padding-right:2.75rem" />
+                    <button type="button" class="password-toggle" onclick="togglePassField(this)"><i class="bi bi-eye"></i></button>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Confirm New Password</label>
+                  <div class="password-wrap">
+                    <input type="password" class="form-control" id="pw-confirm" placeholder="Re-enter password" style="padding-right:2.75rem" />
+                    <button type="button" class="password-toggle" onclick="togglePassField(this)"><i class="bi bi-eye"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-dark">Save Changes <i class="bi bi-check-lg ms-1"></i></button>
+          </form>
+        </div>
+
+        <!-- Addresses Panel -->
+        <div class="dashboard-panel" id="panel-addresses">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <div class="dashboard-panel-title mb-0">Saved Addresses</div>
+            <button class="btn btn-outline-dark btn-sm" id="add-address-btn"><i class="bi bi-plus me-1"></i> Add New</button>
+          </div>
+          <div class="address-grid" id="address-grid"></div>
+        </div>
+
+        <!-- Notifications Panel -->
+        <div class="dashboard-panel" id="panel-notifications">
+          <div class="dashboard-panel-title">Notification Preferences</div>
+          <div style="display:flex;flex-direction:column;gap:10px;max-width:520px" id="notif-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="luxe-footer mt-5">
+  <div class="container-xl px-4">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">LUX<span>E</span></div>
+        <p class="footer-tagline">Premium Fashion. Minimal Design.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-btn"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="social-btn"><i class="bi bi-pinterest"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <p class="footer-heading">Shop</p>
+        <ul class="footer-links">
+          <li><a href="shop.html?cat=men">Men</a></li>
+          <li><a href="shop.html?cat=women">Women</a></li>
+          <li><a href="shop.html?cat=streetwear">Streetwear</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-heading">Help</p>
+        <ul class="footer-links">
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="footer-divider" />
+    <div class="footer-bottom"><p>© 2025 LUXE Fashion. All rights reserved.</p></div>
+  </div>
+</footer><script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/main.js"></script>
+<script>
+// ── Mobile menu ──────────────────────────────────────────────
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+const menuOverlay = document.getElementById('menu-overlay');
+menuToggle.addEventListener('click', () => { mobileMenu.classList.add('open'); menuOverlay.classList.add('active'); });
+document.getElementById('mobile-menu-close').addEventListener('click', () => { mobileMenu.classList.remove('open'); menuOverlay.classList.remove('active'); });
+menuOverlay.addEventListener('click', () => { mobileMenu.classList.remove('open'); menuOverlay.classList.remove('active'); });
+
+// ── Load user from localStorage ──────────────────────────────
+const DEFAULT_USER = { name: 'James Whitfield', email: 'james@email.com', phone: '+1 555 000 0000' };
+let user = JSON.parse(localStorage.getItem('luxe_user') || JSON.stringify(DEFAULT_USER));
+if (!user.name) user = DEFAULT_USER;
+
+function refreshUserUI() {
+  document.getElementById('user-name').textContent = user.name;
+  document.getElementById('user-email').textContent = user.email;
+  document.getElementById('user-avatar').textContent = user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+  document.getElementById('profile-first').value = user.name.split(' ')[0] || '';
+  document.getElementById('profile-last').value  = user.name.split(' ').slice(1).join(' ') || '';
+  document.getElementById('profile-email').value = user.email;
+  document.getElementById('profile-phone').value = user.phone || '+1 555 000 0000';
+}
+refreshUserUI();
+
+// ── Panel navigation ─────────────────────────────────────────
+document.querySelectorAll('.dashboard-nav-item[data-panel]').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.dashboard-nav-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.dashboard-panel').forEach(p => p.classList.remove('active'));
+    item.classList.add('active');
+    document.getElementById('panel-' + item.dataset.panel).classList.add('active');
+    if (item.dataset.panel === 'wishlist') renderWishlist();
+    if (item.dataset.panel === 'addresses') renderAddresses();
+    if (item.dataset.panel === 'notifications') renderNotifications();
+  });
+});
+
+// ── Logout ───────────────────────────────────────────────────
+document.getElementById('logout-btn').addEventListener('click', () => {
+  localStorage.removeItem('luxe_user');
+  showToast('Signed out successfully', 'info');
+  setTimeout(() => window.location.href = 'login.html', 1000);
+});
+
+// ── Mock Orders ──────────────────────────────────────────────
+const MOCK_ORDERS = [
+  {
+    id: 'LX-48291', date: 'May 15, 2025', status: 'delivered',
+    items: [PRODUCTS[0], PRODUCTS[1]], total: 138,
+    tracking: [
+      { label: 'Order Placed',    date: 'May 15, 2025',  done: true },
+      { label: 'Payment Confirmed', date: 'May 15, 2025', done: true },
+      { label: 'Dispatched',      date: 'May 17, 2025',  done: true },
+      { label: 'In Transit',      date: 'May 19, 2025',  done: true },
+      { label: 'Delivered',       date: 'May 22, 2025',  done: true },
+    ]
+  },
+  {
+    id: 'LX-39104', date: 'April 28, 2025', status: 'shipped',
+    items: [PRODUCTS[2]], total: 149,
+    tracking: [
+      { label: 'Order Placed',    date: 'Apr 28, 2025', done: true },
+      { label: 'Payment Confirmed', date: 'Apr 28, 2025', done: true },
+      { label: 'Dispatched',      date: 'Apr 30, 2025', done: true },
+      { label: 'In Transit',      date: 'May 2, 2025',  done: true, active: true },
+      { label: 'Delivered',       date: 'Expected May 8', done: false },
+    ]
+  },
+  {
+    id: 'LX-27653', date: 'April 10, 2025', status: 'delivered',
+    items: [PRODUCTS[4], PRODUCTS[6]], total: 124,
+    tracking: [
+      { label: 'Order Placed',    date: 'Apr 10, 2025', done: true },
+      { label: 'Payment Confirmed', date: 'Apr 10, 2025', done: true },
+      { label: 'Dispatched',      date: 'Apr 12, 2025', done: true },
+      { label: 'In Transit',      date: 'Apr 14, 2025', done: true },
+      { label: 'Delivered',       date: 'Apr 17, 2025', done: true },
+    ]
+  },
+  {
+    id: 'LX-18920', date: 'March 22, 2025', status: 'processing',
+    items: [PRODUCTS[7]], total: 119,
+    tracking: [
+      { label: 'Order Placed',    date: 'Mar 22, 2025', done: true },
+      { label: 'Payment Confirmed', date: 'Mar 22, 2025', done: true, active: true },
+      { label: 'Dispatched',      date: 'Pending',      done: false },
+      { label: 'In Transit',      date: '—',            done: false },
+      { label: 'Delivered',       date: '—',            done: false },
+    ]
+  },
+];
+
+function renderOrders() {
+  document.getElementById('orders-list').innerHTML = MOCK_ORDERS.map(order => `
+    <div class="order-card">
+      <div class="order-card-header">
+        <div>
+          <div class="order-id">Order #${order.id}</div>
+          <div class="order-date">${order.date}</div>
+        </div>
+        <span class="order-status status-${order.status}">${order.status.charAt(0).toUpperCase()+order.status.slice(1)}</span>
+      </div>
+      <div class="order-card-body">
+        <div class="order-items-preview">
+          ${order.items.slice(0,3).map(item => `
+            <div class="order-preview-img"><img src="${item.images[0]}" alt="${item.name}" loading="lazy" /></div>
+          `).join('')}
+        </div>
+        <div style="font-size:13px;color:var(--warm-gray);margin-bottom:.75rem;line-height:1.5">
+          ${order.items.map(i => i.name).join(', ')}
+        </div>
+        <div class="order-total-row">
+          <span class="order-total-label">${order.items.length} item${order.items.length!==1?'s':''}</span>
+          <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
+            <span class="order-total-amount">${formatPrice(order.total)}</span>
+            ${order.status === 'delivered'
+              ? `<button class="btn btn-outline-dark btn-sm" onclick="reorderItems('${order.id}')">Reorder</button>`
+              : `<button class="btn btn-outline-dark btn-sm" onclick="openTrackModal('${order.id}')"><i class="bi bi-geo-alt me-1"></i>Track</button>`
+            }
+            <button class="btn btn-outline-dark btn-sm" onclick="openTrackModal('${order.id}')"><i class="bi bi-list-ul me-1"></i>Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── Track Modal ──────────────────────────────────────────────
+function openTrackModal(orderId) {
+  const order = MOCK_ORDERS.find(o => o.id === orderId);
+  if (!order) return;
+  document.getElementById('track-order-id').innerHTML =
+    `<strong>Order #${order.id}</strong> &nbsp;·&nbsp; ${order.date} &nbsp;·&nbsp;
+     <span class="order-status status-${order.status}" style="font-size:11px">${order.status}</span>`;
+  document.getElementById('track-steps').innerHTML = order.tracking.map(step => `
+    <div class="track-step ${step.done ? 'done' : ''} ${step.active ? 'active' : ''}">
+      <div class="track-dot">
+        ${step.done ? '<i class="bi bi-check-lg"></i>' : step.active ? '<i class="bi bi-circle-fill" style="font-size:8px"></i>' : ''}
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:600;color:${step.done||step.active?'var(--black)':'var(--mid-gray)'}">${step.label}</div>
+        <div style="font-size:12px;color:var(--warm-gray);margin-top:2px">${step.date}</div>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('track-modal-bg').classList.add('open');
+}
+function closeTrackModal() { document.getElementById('track-modal-bg').classList.remove('open'); }
+document.getElementById('track-modal-bg').addEventListener('click', e => { if (e.target === e.currentTarget) closeTrackModal(); });
+
+// ── Reorder ──────────────────────────────────────────────────
+function reorderItems(orderId) {
+  const order = MOCK_ORDERS.find(o => o.id === orderId);
+  if (!order) return;
+  order.items.forEach(p => addToCart(p.id, p.sizes[1] || p.sizes[0], 1));
+  showToast(`${order.items.length} item${order.items.length!==1?'s':''} added to cart!`, 'success');
+}
+
+// ── Wishlist ─────────────────────────────────────────────────
+function renderWishlist() {
+  const wishlist = getWishlist();
+  const grid = document.getElementById('wishlist-grid');
+  const empty = document.getElementById('wishlist-empty');
+  if (!wishlist.length) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  grid.innerHTML = wishlist.map(id => getProductById(id)).filter(Boolean).map(p => `
+    <div class="product-card">
+      <div class="product-card-img">
+        <img class="img-primary" src="${p.images[0]}" alt="${p.name}" loading="lazy" />
+        <img class="img-hover" src="${p.images[1]||p.images[0]}" alt="${p.name}" loading="lazy" />
+        <div class="product-actions" style="opacity:1;transform:none">
+          <button class="product-action-btn active remove-wishlist" data-id="${p.id}" title="Remove"><i class="bi bi-heart-fill"></i></button>
+          <a href="product.html?id=${p.id}" class="product-action-btn"><i class="bi bi-eye"></i></a>
+        </div>
+        <button class="product-quick-add" data-id="${p.id}">+ Add to Cart</button>
+      </div>
+      <div class="product-info">
+        <a href="product.html?id=${p.id}"><div class="product-name">${p.name}</div></a>
+        <div class="product-price-wrap">
+          <span class="product-price">${formatPrice(p.price)}</span>
+          <span class="product-original-price">${formatPrice(p.originalPrice)}</span>
+          <span class="product-discount">−${p.discount}%</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  grid.querySelectorAll('.remove-wishlist').forEach(btn => {
+    btn.addEventListener('click', () => { toggleWishlist(parseInt(btn.dataset.id)); renderWishlist(); });
+  });
+  grid.querySelectorAll('.product-quick-add').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const p = getProductById(parseInt(btn.dataset.id));
+      addToCart(p.id, p.sizes[1] || p.sizes[0]);
+    });
+  });
+}
+
+// ── Profile form ─────────────────────────────────────────────
+document.getElementById('profile-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const first = document.getElementById('profile-first').value.trim();
+  const last  = document.getElementById('profile-last').value.trim();
+  const email = document.getElementById('profile-email').value.trim();
+  const phone = document.getElementById('profile-phone').value.trim();
+  if (!first || !email) { showToast('Please fill required fields', 'error'); return; }
+  // Password change validation
+  const pwCurrent = document.getElementById('pw-current').value;
+  const pwNew     = document.getElementById('pw-new').value;
+  const pwConfirm = document.getElementById('pw-confirm').value;
+  if (pwNew || pwConfirm) {
+    if (!pwCurrent) { showToast('Enter your current password', 'error'); return; }
+    if (pwNew.length < 8) { showToast('New password must be at least 8 characters', 'error'); return; }
+    if (pwNew !== pwConfirm) { showToast('Passwords do not match', 'error'); return; }
+    document.getElementById('pw-current').value = '';
+    document.getElementById('pw-new').value = '';
+    document.getElementById('pw-confirm').value = '';
+  }
+  user = { name: (first + ' ' + last).trim(), email, phone };
+  localStorage.setItem('luxe_user', JSON.stringify(user));
+  refreshUserUI();
+  showToast('Profile updated successfully!', 'success');
+});
+
+// ── Addresses ────────────────────────────────────────────────
+function getAddresses() {
+  return JSON.parse(localStorage.getItem('luxe_addresses') || JSON.stringify([
+    { id: 1, name: 'James Whitfield', phone: '+1 555 000 0000', line1: '350 Fifth Avenue', line2: 'Suite 4100', city: 'New York', state: 'NY', zip: '10118', country: 'United States', isDefault: true },
+    { id: 2, name: 'James Whitfield', phone: '+1 555 000 0000', line1: '1 Infinite Loop', line2: '', city: 'Cupertino', state: 'CA', zip: '95014', country: 'United States', isDefault: false },
+  ]));
+}
+function saveAddresses(addrs) { localStorage.setItem('luxe_addresses', JSON.stringify(addrs)); }
+
+function renderAddresses() {
+  const addrs = getAddresses();
+  document.getElementById('address-grid').innerHTML = addrs.map(a => `
+    <div class="address-card ${a.isDefault ? 'default' : ''}">
+      ${a.isDefault ? '<span class="address-default-badge">Default</span>' : ''}
+      <div class="address-name">${a.name}</div>
+      <div class="address-text">
+        ${a.line1}${a.line2 ? '<br>' + a.line2 : ''}<br>
+        ${a.city}, ${a.state} ${a.zip}<br>
+        ${a.country}<br>
+        ${a.phone}
+      </div>
+      <div class="address-actions">
+        <span class="address-action-btn" onclick="editAddress(${a.id})">Edit</span>
+        ${!a.isDefault ? `<span class="address-action-btn" onclick="setDefaultAddress(${a.id})">Set Default</span>` : ''}
+        <span class="address-action-btn delete" onclick="deleteAddress(${a.id})">Delete</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function setDefaultAddress(id) {
+  const addrs = getAddresses().map(a => ({ ...a, isDefault: a.id === id }));
+  saveAddresses(addrs); renderAddresses();
+  showToast('Default address updated', 'success');
+}
+
+function deleteAddress(id) {
+  if (!confirm('Delete this address?')) return;
+  const addrs = getAddresses().filter(a => a.id !== id);
+  saveAddresses(addrs); renderAddresses();
+  showToast('Address deleted', 'info');
+}
+
+let editingAddrId = null;
+function editAddress(id) {
+  const a = getAddresses().find(x => x.id === id);
+  if (!a) return;
+  editingAddrId = id;
+  document.getElementById('addr-modal-title').textContent = 'Edit Address';
+  document.getElementById('addr-name').value    = a.name;
+  document.getElementById('addr-phone').value   = a.phone;
+  document.getElementById('addr-line1').value   = a.line1;
+  document.getElementById('addr-line2').value   = a.line2;
+  document.getElementById('addr-city').value    = a.city;
+  document.getElementById('addr-state').value   = a.state;
+  document.getElementById('addr-zip').value     = a.zip;
+  document.getElementById('addr-country').value = a.country;
+  document.getElementById('addr-default').checked = a.isDefault;
+  document.getElementById('addr-modal-bg').classList.add('open');
+}
+
+function openAddrModal() {
+  editingAddrId = null;
+  document.getElementById('addr-modal-title').textContent = 'Add New Address';
+  document.getElementById('addr-form').reset();
+  document.getElementById('addr-modal-bg').classList.add('open');
+}
+function closeAddrModal() { document.getElementById('addr-modal-bg').classList.remove('open'); }
+document.getElementById('addr-modal-bg').addEventListener('click', e => { if (e.target === e.currentTarget) closeAddrModal(); });
+document.getElementById('add-address-btn').addEventListener('click', openAddrModal);
+
+document.getElementById('addr-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const addrs = getAddresses();
+  const isDefault = document.getElementById('addr-default').checked;
+  const newAddr = {
+    id: editingAddrId || Date.now(),
+    name:    document.getElementById('addr-name').value.trim(),
+    phone:   document.getElementById('addr-phone').value.trim(),
+    line1:   document.getElementById('addr-line1').value.trim(),
+    line2:   document.getElementById('addr-line2').value.trim(),
+    city:    document.getElementById('addr-city').value.trim(),
+    state:   document.getElementById('addr-state').value.trim(),
+    zip:     document.getElementById('addr-zip').value.trim(),
+    country: document.getElementById('addr-country').value,
+    isDefault,
+  };
+  let updated;
+  if (editingAddrId) {
+    updated = addrs.map(a => a.id === editingAddrId ? newAddr : (isDefault ? { ...a, isDefault: false } : a));
+  } else {
+    updated = isDefault ? addrs.map(a => ({ ...a, isDefault: false })) : [...addrs];
+    updated.push(newAddr);
+  }
+  saveAddresses(updated);
+  renderAddresses();
+  closeAddrModal();
+  showToast(editingAddrId ? 'Address updated!' : 'Address added!', 'success');
+});
+
+// ── Notifications ────────────────────────────────────────────
+const NOTIF_DEFAULTS = [
+  { key: 'orders',    label: 'Order Updates',   desc: 'Get notified about your order status',       on: true  },
+  { key: 'arrivals',  label: 'New Arrivals',     desc: 'Be first to know about new drops',           on: true  },
+  { key: 'sales',     label: 'Flash Sales',      desc: 'Exclusive sale alerts before they go live',  on: true  },
+  { key: 'wishlist',  label: 'Wishlist Alerts',  desc: 'Price drops on your saved items',            on: false },
+  { key: 'newsletter',label: 'Newsletter',       desc: 'Weekly style inspiration & brand stories',   on: true  },
+];
+
+function getNotifPrefs() {
+  return JSON.parse(localStorage.getItem('luxe_notifs') || JSON.stringify(NOTIF_DEFAULTS));
+}
+
+function renderNotifications() {
+  const prefs = getNotifPrefs();
+  document.getElementById('notif-list').innerHTML = prefs.map(n => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.1rem;border:1px solid var(--light-gray);border-radius:var(--r-lg);gap:1rem">
+      <div>
+        <div style="font-weight:600;font-size:14px">${n.label}</div>
+        <div style="font-size:12.5px;color:var(--warm-gray);margin-top:2px">${n.desc}</div>
+      </div>
+      <label class="toggle-wrap">
+        <input type="checkbox" ${n.on ? 'checked' : ''} data-key="${n.key}" class="notif-toggle" />
+        <span class="toggle-track"></span>
+      </label>
+    </div>
+  `).join('');
+  document.querySelectorAll('.notif-toggle').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const prefs = getNotifPrefs();
+      const item = prefs.find(n => n.key === cb.dataset.key);
+      if (item) { item.on = cb.checked; localStorage.setItem('luxe_notifs', JSON.stringify(prefs)); }
+      showToast('Preferences saved', 'success');
+    });
+  });
+}
+
+// ── Password toggle ──────────────────────────────────────────
+function togglePassField(btn) {
+  const input = btn.previousElementSibling;
+  const icon = btn.querySelector('i');
+  if (input.type === 'password') { input.type = 'text'; icon.className = 'bi bi-eye-slash'; }
+  else { input.type = 'password'; icon.className = 'bi bi-eye'; }
+}
+
+// ── Init ─────────────────────────────────────────────────────
+renderOrders();
+renderAddresses();
+renderNotifications();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

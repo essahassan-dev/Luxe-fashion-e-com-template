@@ -1,0 +1,352 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — LUXE Fashion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <style>
+    /* ── Role indicator pill ── */
+    .role-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: var(--r-full);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    .role-pill.show { opacity: 1; transform: translateY(0); }
+    .role-pill.admin { background: #fff0f0; color: var(--red); border: 1px solid rgba(200,16,46,0.2); }
+    .role-pill.user  { background: #f0f7ff; color: #2563eb; border: 1px solid rgba(37,99,235,0.2); }
+
+    /* ── Hint box ── */
+    .hint-box {
+      background: var(--off-white);
+      border-radius: var(--r-md);
+      padding: 1rem 1.1rem;
+      border-left: 3px solid var(--red);
+      margin-top: 1.5rem;
+    }
+    .hint-box p { font-size: 12.5px; color: var(--warm-gray); line-height: 1.65; }
+    .hint-box strong { color: var(--black); }
+
+    /* ── Error banner ── */
+    .error-banner {
+      background: #fff0f0;
+      border: 1px solid rgba(200,16,46,0.2);
+      border-radius: var(--r-md);
+      padding: 0.75rem 1rem;
+      font-size: 13px;
+      color: var(--red);
+      margin-bottom: 1.25rem;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+    .error-banner.show { display: flex; }
+
+    /* ── Divider ── */
+    .or-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin: 1.4rem 0;
+      color: var(--mid-gray);
+      font-size: 12.5px;
+    }
+    .or-divider::before, .or-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--light-gray);
+    }
+
+    /* ── Social buttons ── */
+    .social-btns { display: flex; gap: 8px; }
+    .social-btn-auth {
+      flex: 1;
+      padding: 0.7rem;
+      border: 1.5px solid var(--light-gray);
+      border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color var(--t-fast), background var(--t-fast);
+      background: var(--white);
+      font-family: var(--font-body);
+      color: var(--black);
+    }
+    .social-btn-auth:hover { border-color: var(--black); background: var(--off-white); }
+  </style>
+</head>
+<body>
+
+<section class="auth-section">
+  <!-- Visual Side -->
+  <div class="auth-visual">
+    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&q=80" alt="LUXE Fashion" />
+    <div class="auth-visual-overlay">
+      <div class="auth-visual-quote">"Style is a way to say who you are without having to speak."</div>
+      <div class="auth-visual-sub">— Rachel Zoe</div>
+    </div>
+  </div>
+
+  <!-- Form Side -->
+  <div class="auth-form-side">
+    <a href="index.html" class="auth-logo">LUX<span>E</span></a>
+
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.5rem">
+      <h2 class="auth-title" style="margin-bottom:0">Welcome back</h2>
+      <span class="role-pill" id="role-pill"></span>
+    </div>
+    <p class="auth-subtitle">Sign in to your account to continue.</p>
+
+    <!-- Error Banner -->
+    <div class="error-banner" id="error-banner">
+      <i class="bi bi-exclamation-circle-fill"></i>
+      <span id="error-msg">Invalid email or password.</span>
+    </div>
+
+    <form id="login-form" novalidate>
+      <div class="form-group">
+        <label class="form-label">Email Address *</label>
+        <input
+          type="email"
+          class="form-control"
+          id="login-email"
+          placeholder="you@email.com"
+          autocomplete="email"
+        />
+        <div class="form-error" id="err-login-email">Please enter a valid email address</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password *</label>
+        <div class="password-wrap">
+          <input
+            type="password"
+            class="form-control"
+            id="login-password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            style="padding-right:2.75rem"
+          />
+          <button type="button" class="password-toggle" id="toggle-pw" aria-label="Toggle password">
+            <i class="bi bi-eye"></i>
+          </button>
+        </div>
+        <div class="form-error" id="err-login-password">Please enter your password</div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+        <label style="display:flex;align-items:center;gap:7px;font-size:13.5px;cursor:pointer;color:var(--warm-gray)">
+          <input type="checkbox" id="remember-me" style="accent-color:var(--black);width:15px;height:15px" />
+          Remember me
+        </label>
+        <a href="#" style="font-size:13px;color:var(--black);text-decoration:underline">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn btn-dark btn-lg w-100" id="login-btn" style="border-radius:var(--r-sm)">
+        <i class="bi bi-box-arrow-in-right me-1"></i>
+        Sign In
+      </button>
+    </form>
+
+    <!-- Hint box -->
+    <div class="hint-box">
+      <p>
+        <strong>User account:</strong> Any email + any password (6+ chars)<br />
+        <strong>Admin account:</strong> <strong>admin@luxefashion.com</strong> / <strong>admin123</strong>
+      </p>
+    </div>
+
+    <div class="or-divider">or continue with</div>
+
+    <div class="social-btns">
+      <button class="social-btn-auth" id="google-btn">
+        <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+        </svg>
+        Google
+      </button>
+      <button class="social-btn-auth" id="apple-btn">
+        <i class="bi bi-apple" style="font-size:1.05rem"></i>
+        Apple
+      </button>
+    </div>
+
+    <p class="auth-switch">Don't have an account? <a href="register.html">Create one</a></p>
+  </div>
+</section>
+
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // ── Credentials ──────────────────────────────────────────────
+  const ADMIN_CREDS = {
+    email:    'admin@luxefashion.com',
+    password: 'admin123'
+  };
+
+  // ── Password toggle ──────────────────────────────────────────
+  document.getElementById('toggle-pw').addEventListener('click', function() {
+    const input = document.getElementById('login-password');
+    const icon  = this.querySelector('i');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.className = 'bi bi-eye-slash';
+    } else {
+      input.type = 'password';
+      icon.className = 'bi bi-eye';
+    }
+  });
+
+  // ── Live role detection ──────────────────────────────────────
+  const emailInput = document.getElementById('login-email');
+  const rolePill   = document.getElementById('role-pill');
+
+  emailInput.addEventListener('input', function() {
+    const val = this.value.trim().toLowerCase();
+    if (val === ADMIN_CREDS.email) {
+      rolePill.className = 'role-pill admin show';
+      rolePill.innerHTML = '<i class="bi bi-shield-fill"></i> Admin';
+    } else if (val.includes('@') && val.includes('.')) {
+      rolePill.className = 'role-pill user show';
+      rolePill.innerHTML = '<i class="bi bi-person-fill"></i> Customer';
+    } else {
+      rolePill.className = 'role-pill';
+      rolePill.innerHTML = '';
+    }
+  });
+
+  // ── Clear errors on input ────────────────────────────────────
+  emailInput.addEventListener('input', function() {
+    this.classList.remove('error');
+    document.getElementById('err-login-email').classList.remove('show');
+    document.getElementById('error-banner').classList.remove('show');
+  });
+  document.getElementById('login-password').addEventListener('input', function() {
+    this.classList.remove('error');
+    document.getElementById('err-login-password').classList.remove('show');
+    document.getElementById('error-banner').classList.remove('show');
+  });
+
+  // ── Form submit ──────────────────────────────────────────────
+  document.getElementById('login-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const email    = document.getElementById('login-email');
+    const password = document.getElementById('login-password');
+    const errEmail = document.getElementById('err-login-email');
+    const errPass  = document.getElementById('err-login-password');
+    const banner   = document.getElementById('error-banner');
+    const btn      = document.getElementById('login-btn');
+
+    let valid = true;
+
+    // Validate email
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+      email.classList.add('error');
+      errEmail.classList.add('show');
+      valid = false;
+    } else {
+      email.classList.remove('error');
+      errEmail.classList.remove('show');
+    }
+
+    // Validate password
+    if (password.value.length < 6) {
+      password.classList.add('error');
+      errPass.classList.add('show');
+      valid = false;
+    } else {
+      password.classList.remove('error');
+      errPass.classList.remove('show');
+    }
+
+    if (!valid) return;
+
+    const emailVal = email.value.trim().toLowerCase();
+    const passVal  = password.value;
+
+    // ── ADMIN LOGIN ──────────────────────────────────────────
+    if (emailVal === ADMIN_CREDS.email && passVal === ADMIN_CREDS.password) {
+      banner.classList.remove('show');
+      btn.innerHTML = '<i class="bi bi-shield-check me-1"></i> Redirecting to Admin…';
+      btn.style.background = '#c8102e';
+
+      localStorage.setItem('luxe_admin', JSON.stringify({
+        email: ADMIN_CREDS.email,
+        name:  'Admin',
+        loginTime: new Date().toISOString()
+      }));
+
+      showToast('Welcome, Admin! Redirecting…', 'success');
+      setTimeout(() => window.location.href = 'admin.html', 1000);
+      return;
+    }
+
+    // ── USER LOGIN ───────────────────────────────────────────
+    // For demo: any valid email + password ≥ 6 chars = success
+    // In production this would hit an API
+    if (emailVal !== ADMIN_CREDS.email) {
+      banner.classList.remove('show');
+      btn.innerHTML = '<i class="bi bi-check-lg me-1"></i> Signed in…';
+      btn.style.background = '#2a2a28';
+
+      // Derive a display name from email
+      const namePart = emailVal.split('@')[0];
+      const displayName = namePart.charAt(0).toUpperCase() + namePart.slice(1).replace(/[._-]/g, ' ');
+
+      localStorage.setItem('luxe_user', JSON.stringify({
+        name:  displayName,
+        email: emailVal,
+        phone: ''
+      }));
+
+      showToast('Welcome back to LUXE!', 'success');
+      setTimeout(() => window.location.href = 'dashboard.html', 1000);
+      return;
+    }
+
+    // ── WRONG ADMIN PASSWORD ─────────────────────────────────
+    banner.classList.add('show');
+    document.getElementById('error-msg').textContent = 'Invalid email or password. Please try again.';
+    email.classList.add('error');
+    password.classList.add('error');
+    password.value = '';
+    password.focus();
+  });
+
+  // ── Social buttons ───────────────────────────────────────────
+  document.getElementById('google-btn').addEventListener('click', () => showToast('Google sign-in coming soon', 'info'));
+  document.getElementById('apple-btn').addEventListener('click',  () => showToast('Apple sign-in coming soon',  'info'));
+
+  // ── Auto-redirect if already logged in ──────────────────────
+  // Only redirect user, not admin (admin may want to switch accounts)
+  if (localStorage.getItem('luxe_user') && !localStorage.getItem('luxe_admin')) {
+    window.location.href = 'dashboard.html';
+  }
+</script>
+</body>
+</html>
+
+
+
